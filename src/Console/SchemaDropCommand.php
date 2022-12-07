@@ -28,7 +28,7 @@ class SchemaDropCommand extends SchemaCommand
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         // get classes
         $classes = $this->getClasses($this->config['models_namespace']);

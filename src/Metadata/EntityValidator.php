@@ -4,6 +4,7 @@ namespace ProAI\Datamapper\Metadata;
 
 use Exception;
 use DomainException;
+use Illuminate\Support\Str;
 use UnexpectedValueException;
 use InvalidArgumentException;
 use ProAI\Datamapper\Metadata\Definitions\Entity as EntityDefinition;
@@ -94,7 +95,7 @@ class EntityValidator
      */
     public function validateName($name, $definedClass)
     {
-        if ($name != camel_case($name)) {
+        if ($name != Str::camel($name)) {
             throw new Exception('Name "'.$name.'" (defined in class "'.$definedClass.'") is not a camel case name.');
         }
 

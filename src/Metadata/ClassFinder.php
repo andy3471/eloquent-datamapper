@@ -2,14 +2,14 @@
 
 namespace ProAI\Datamapper\Metadata;
 
-use Illuminate\Filesystem\ClassFinder as FilesystemClassFinder;
+use HaydenPierce\ClassFinder\ClassFinder as FilesystemClassFinder;
 
 class ClassFinder
 {
     /**
      * The class finder instance.
      *
-     * @var \Illuminate\Filesystem\ClassFinder
+     * @var FilesystemClassFinder
      */
     protected $finder;
 
@@ -42,33 +42,9 @@ class ClassFinder
     {
         $namespace = $namespace ?: $this->getAppNamespace();
 
-        $path = $this->convertNamespaceToPath($namespace);
+//        $path = $this->convertNamespaceToPath($namespace);
 
-        return $this->finder->findClasses($path);
-    }
-
-    /**
-     * Convert given namespace to file path.
-     *
-     * @param string $namespace
-     * @return string|null
-     */
-    protected function convertNamespaceToPath($namespace)
-    {
-        // strip app namespace
-        $appNamespace = $this->getAppNamespace();
-
-        if (substr($namespace, 0, strlen($appNamespace)) != $appNamespace) {
-            return null;
-        }
-
-        $subNamespace = substr($namespace, strlen($appNamespace));
-
-        // replace \ with / to get the correct file path
-        $subPath = str_replace('\\', '/', $subNamespace);
-
-        // create path
-        return app('path') . '/' . $subPath;
+        return $this->finder->getClassesInNamespace($namespace);
     }
 
     /**

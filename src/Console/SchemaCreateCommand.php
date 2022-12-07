@@ -28,7 +28,7 @@ class SchemaCreateCommand extends SchemaCommand
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $this->info(PHP_EOL . ' 0% Initializing');
 

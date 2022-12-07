@@ -4,9 +4,9 @@ namespace ProAI\Datamapper\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use ProAI\Datamapper\Metadata\ClassFinder;
-use Illuminate\Filesystem\ClassFinder as FilesystemClassFinder;
 use ProAI\Datamapper\Metadata\AnnotationLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
+use \HaydenPierce\ClassFinder\ClassFinder as FilesystemClassFinder;
 
 class MetadataServiceProvider extends ServiceProvider
 {

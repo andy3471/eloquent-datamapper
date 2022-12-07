@@ -2,6 +2,7 @@
 
 namespace ProAI\Datamapper\Metadata;
 
+use Illuminate\Support\Str;
 use ReflectionClass;
 use Doctrine\Common\Annotations\AnnotationReader;
 use ProAI\Datamapper\Metadata\EntityValidator;
@@ -853,7 +854,7 @@ class EntityScanner
      */
     protected function generateKey($class)
     {
-        return snake_case(class_basename($class)).'_id';
+        return Str::snake(class_basename($class)).'_id';
     }
 
     /**
@@ -876,16 +877,16 @@ class EntityScanner
             $related = (! empty($morph))
                 ? $morph
                 : (! empty($inverse)
-                    ? snake_case(class_basename($class2))
-                    : snake_case(class_basename($class1)));
+                    ? Str::snake(class_basename($class2))
+                    : Str::snake(class_basename($class1)));
 
             return $base . '_' . $related . '_pivot';
         }
 
         // eloquent default
-        $base = snake_case(class_basename($class1));
+        $base = Str::snake(class_basename($class1));
 
-        $related = snake_case(class_basename($class2));
+        $related = Str::snake(class_basename($class2));
 
         $models = array($related, $base);
 
@@ -917,7 +918,7 @@ class EntityScanner
         }
 
         // eloquent default
-        return str_replace('\\', '', snake_case(str_plural(class_basename($class))));
+        return str_replace('\\', '', Str::snake(str_plural(class_basename($class))));
     }
 
     /**
@@ -930,7 +931,7 @@ class EntityScanner
     {
         // datamapper morphclass abbreviations
         if ($this->morphClassAbbreviations) {
-            return snake_case(class_basename($class));
+            return Str::snake(class_basename($class));
         }
 
         // eloquent default
@@ -974,7 +975,7 @@ class EntityScanner
      */
     protected function getColumnName($name, $prefix = false)
     {
-        $name = snake_case($name);
+        $name = Str::snake($name);
 
         if ($prefix) {
             $name = $prefix.'_'.$name;
