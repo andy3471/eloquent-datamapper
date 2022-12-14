@@ -2,8 +2,6 @@
 
 namespace ProAI\Datamapper\Providers;
 
-use ProAI\Datamapper\Providers\BaseServiceProvider;
-
 class LumenServiceProvider extends BaseServiceProvider
 {
     /**

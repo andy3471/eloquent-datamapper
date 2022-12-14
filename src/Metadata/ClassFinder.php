@@ -23,8 +23,8 @@ class ClassFinder
     /**
      * Create a new metadata builder instance.
      *
-     * @param \Illuminate\Filesystem\ClassFinder $finder
-     * @param array $config
+     * @param  \Illuminate\Filesystem\ClassFinder  $finder
+     * @param  array  $config
      * @return void
      */
     public function __construct(FilesystemClassFinder $finder)
@@ -35,7 +35,7 @@ class ClassFinder
     /**
      * Get all classes for a given namespace.
      *
-     * @param string $namespace
+     * @param  string  $namespace
      * @return array
      */
     public function getClassesFromNamespace($namespace = null)
@@ -69,7 +69,7 @@ class ClassFinder
                 }
             }
         }
-        
+
         throw new RuntimeException('Unable to detect application namespace.');
     }
 }

@@ -14,7 +14,7 @@ trait AutoUuid
     protected static function bootAutoUuid()
     {
         static::creating(function ($model) {
-            foreach($model->getAutoUuids() as $autoUuid) {
+            foreach ($model->getAutoUuids() as $autoUuid) {
                 if (empty($model->{$autoUuid})) {
                     $model->setAttribute($autoUuid, $model->generateUuid()->getBytes());
                 }

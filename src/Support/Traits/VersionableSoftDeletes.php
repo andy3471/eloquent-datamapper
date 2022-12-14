@@ -2,8 +2,8 @@
 
 namespace ProAI\Datamapper\Support\Traits;
 
-use ProAI\Datamapper\Annotations as ORM;
 use Carbon\Carbon;
+use ProAI\Datamapper\Annotations as ORM;
 
 trait VersionableSoftDeletes
 {

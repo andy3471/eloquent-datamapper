@@ -75,7 +75,7 @@ class GraphBuilder
     /**
      * Prepare query for execution.
      *
-     * @param string $method
+     * @param  string  $method
      * @return array|null
      */
     protected function getResults($method)
@@ -95,7 +95,7 @@ class GraphBuilder
             // transform to data transfer objects
             if ($results) {
                 $dtos = $results->toDataTransferObject($this->root, $this->schema, $this->transformations);
-                
+
                 return [$this->root => $dtos];
             }
         }
@@ -106,11 +106,11 @@ class GraphBuilder
     /**
      * Parse relations from schema.
      *
-     * @param array $schema
-     * @param string $path
+     * @param  array  $schema
+     * @param  string  $path
      * @return void
      */
-    protected function parseRelationsFromSchema(array $schema, $path='')
+    protected function parseRelationsFromSchema(array $schema, $path = '')
     {
         $results = [];
 
@@ -123,7 +123,8 @@ class GraphBuilder
                         : $key;
                     $results[$childPath] = (isset($this->constraints[$this->root.'.'.$childPath]))
                         ? $this->constraints[$this->root.'.'.$childPath]
-                        : function () {};
+                        : function () {
+                        };
                 } else {
                     $childPath = $path;
                 }

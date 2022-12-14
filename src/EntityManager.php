@@ -2,10 +2,9 @@
 
 namespace ProAI\Datamapper;
 
-use ProAI\Datamapper\Eloquent\Model;
-use ProAI\Datamapper\Eloquent\Builder;
 use Exception;
-use ReflectionObject;
+use ProAI\Datamapper\Eloquent\Builder;
+use ProAI\Datamapper\Eloquent\Model;
 
 class EntityManager
 {
@@ -21,7 +20,7 @@ class EntityManager
     /**
      * Get a new datamapper query instance.
      *
-     * @param string $class
+     * @param  string  $class
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public function entity($class)
@@ -36,7 +35,7 @@ class EntityManager
     /**
      * Get a new schema query instance.
      *
-     * @param string $class
+     * @param  string  $class
      * @return \ProAI\Datamapper\Eloquent\GraphBuilder
      */
     public function newGraphQuery($class)
@@ -51,7 +50,7 @@ class EntityManager
     /**
      * Create an entity object.
      *
-     * @param object $entity
+     * @param  object  $entity
      * @return void
      */
     public function insert($entity)
@@ -68,7 +67,7 @@ class EntityManager
     /**
      * Update an entity object.
      *
-     * @param object $entity
+     * @param  object  $entity
      * @return void
      */
     public function update($entity)
@@ -85,7 +84,7 @@ class EntityManager
     /**
      * Delete an entity object.
      *
-     * @param object $entity
+     * @param  object  $entity
      * @return void
      */
     public function delete($entity)
@@ -100,8 +99,8 @@ class EntityManager
     /**
      * Update relations.
      *
-     * @param \ProAI\Datamapper\Eloquent\Model $eloquentModel
-     * @param string $action
+     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  string  $action
      * @return void
      */
     protected function updateRelations($eloquentModel, $action)
@@ -109,7 +108,7 @@ class EntityManager
         $mapping = $eloquentModel->getMapping();
         $eloquentRelations = $eloquentModel->getRelations();
 
-        foreach($mapping['relations'] as $name => $relationMapping) {
+        foreach ($mapping['relations'] as $name => $relationMapping) {
             if (isset($eloquentRelations[$name])) {
                 $this->updateRelation($eloquentModel, $name, $relationMapping, $action);
             }
@@ -119,10 +118,10 @@ class EntityManager
     /**
      * Update a relation.
      *
-     * @param \ProAI\Datamapper\Eloquent\Model $eloquentModel
-     * @param string $name
-     * @param array $relationMapping
-     * @param string $action
+     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  string  $name
+     * @param  array  $relationMapping
+     * @param  string  $action
      * @return void
      */
     protected function updateRelation($eloquentModel, $name, $relationMapping, $action)
@@ -141,9 +140,9 @@ class EntityManager
     /**
      * Update a belongsTo or morphTo relation.
      *
-     * @param \ProAI\Datamapper\Eloquent\Model $eloquentModel
-     * @param string $name
-     * @param string $action
+     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  string  $name
+     * @param  string  $action
      * @return void
      */
     protected function updateBelongsToRelation($eloquentModel, $name, $action)
@@ -156,9 +155,9 @@ class EntityManager
     /**
      * Update a belongsToMany or morphToMany relation.
      *
-     * @param \ProAI\Datamapper\Eloquent\Model $eloquentModel
-     * @param string $name
-     * @param string $action
+     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  string  $name
+     * @param  string  $action
      * @return void
      */
     protected function updateBelongsToManyRelation($eloquentModel, $name, $action)
@@ -172,7 +171,7 @@ class EntityManager
         // get related keys
         $keys = [];
 
-        foreach($eloquentCollection as $item) {
+        foreach ($eloquentCollection as $item) {
             $keys[] = $item->getKey();
         }
 
@@ -191,10 +190,10 @@ class EntityManager
     /**
      * Delete an entity object.
      *
-     * @param object $entity
+     * @param  object  $entity
      * @return \ProAI\Datamapper\Eloquent\Model
      */
-    protected function getEloquentModel($entity, $exists=false)
+    protected function getEloquentModel($entity, $exists = false)
     {
         if (empty($entity)) {
             throw new Exception('Object transfered to EntityManager is empty');

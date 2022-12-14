@@ -13,12 +13,12 @@ class AnnotationLoader
      * @var \Illuminate\Filesystem\Filesystem
      */
     protected $files;
-    
+
     /**
      * Create a new annotation loader instance.
      *
-     * @param  \Illuminate\Filesystem\Filesystem $files
-     * @param string $path
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param  string  $path
      * @return void
      */
     public function __construct(Filesystem $files, $path)
@@ -27,7 +27,6 @@ class AnnotationLoader
         $this->path = $path;
     }
 
-    
     /**
      * Register all annotations.
      *

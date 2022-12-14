@@ -3,9 +3,8 @@
 namespace ProAI\Datamapper\Console;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use ProAI\Datamapper\Console\SchemaCommand;
+use Symfony\Component\Console\Input\InputOption;
 
 class SchemaDropCommand extends SchemaCommand
 {
@@ -57,9 +56,9 @@ class SchemaDropCommand extends SchemaCommand
      */
     protected function getArguments()
     {
-        return array(
-            array('class', InputArgument::OPTIONAL, 'The classname for the migration'),
-        );
+        return [
+            ['class', InputArgument::OPTIONAL, 'The classname for the migration'],
+        ];
     }
 
     /**
@@ -69,8 +68,8 @@ class SchemaDropCommand extends SchemaCommand
      */
     protected function getOptions()
     {
-        return array(
-            array('dump-sql', null, InputOption::VALUE_NONE, 'Search for all eloquent models.'),
-        );
+        return [
+            ['dump-sql', null, InputOption::VALUE_NONE, 'Search for all eloquent models.'],
+        ];
     }
 }

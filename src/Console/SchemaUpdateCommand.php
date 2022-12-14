@@ -3,9 +3,8 @@
 namespace ProAI\Datamapper\Console;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use ProAI\Datamapper\Console\SchemaCommand;
+use Symfony\Component\Console\Input\InputOption;
 
 class SchemaUpdateCommand extends SchemaCommand
 {
@@ -30,7 +29,7 @@ class SchemaUpdateCommand extends SchemaCommand
      */
     public function handle()
     {
-        $this->info(PHP_EOL . ' 0% Initializing');
+        $this->info(PHP_EOL.' 0% Initializing');
 
         // get classes
         $classes = $this->getClasses($this->config['models_namespace']);
@@ -50,7 +49,7 @@ class SchemaUpdateCommand extends SchemaCommand
         // build schema
         $statements = $this->schema->update($metadata, $this->option('save-mode'));
 
-        $this->info(PHP_EOL . 'Schema updated successfully!');
+        $this->info(PHP_EOL.'Schema updated successfully!');
 
         // register presenters
         if ($this->option('presenter')) {
@@ -70,9 +69,9 @@ class SchemaUpdateCommand extends SchemaCommand
      */
     protected function getArguments()
     {
-        return array(
-            array('class', InputArgument::OPTIONAL, 'The classname for the migration'),
-        );
+        return [
+            ['class', InputArgument::OPTIONAL, 'The classname for the migration'],
+        ];
     }
 
     /**
@@ -82,10 +81,10 @@ class SchemaUpdateCommand extends SchemaCommand
      */
     protected function getOptions()
     {
-        return array(
-            array('dump-sql', null, InputOption::VALUE_NONE, 'Search for all eloquent models.'),
-            array('save-mode', null, InputOption::VALUE_NONE, 'Doctrine DBAL save mode for updating.'),
-            array('presenter', null, InputOption::VALUE_NONE, 'Also register presenters with this command.'),
-        );
+        return [
+            ['dump-sql', null, InputOption::VALUE_NONE, 'Search for all eloquent models.'],
+            ['save-mode', null, InputOption::VALUE_NONE, 'Doctrine DBAL save mode for updating.'],
+            ['presenter', null, InputOption::VALUE_NONE, 'Also register presenters with this command.'],
+        ];
     }
 }

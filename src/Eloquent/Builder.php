@@ -2,9 +2,9 @@
 
 namespace ProAI\Datamapper\Eloquent;
 
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as BaseBuilder;
 use Exception;
+use Illuminate\Database\Eloquent\Builder as BaseBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class Builder extends BaseBuilder
 {
@@ -36,7 +36,7 @@ class Builder extends BaseBuilder
      * @param  string  $return
      * @return void
      */
-    public function __construct(QueryBuilder $query, $returnType=Builder::RETURN_TYPE_ELOQUENT)
+    public function __construct(QueryBuilder $query, $returnType = Builder::RETURN_TYPE_ELOQUENT)
     {
         // validate return type
         switch($returnType) {
@@ -59,7 +59,7 @@ class Builder extends BaseBuilder
      * @param  array  $columns
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function get($columns = array('*'))
+    public function get($columns = ['*'])
     {
         $results = parent::get($columns);
 

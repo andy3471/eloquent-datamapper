@@ -2,10 +2,10 @@
 
 namespace ProAI\Datamapper\Schema;
 
-use Illuminate\Database\Connection;
-use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Comparator;
+use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Visitor\DropSchemaSqlCollector;
+use Illuminate\Database\Connection;
 use ProAI\Datamapper\Metadata\Definitions\Column as ColumnDefinition;
 use ProAI\Datamapper\Metadata\Definitions\Table as TableDefinition;
 
@@ -55,7 +55,7 @@ class Builder
     /**
      * Constructor.
      *
-     * @param \Illuminate\Database\Connection $connection
+     * @param  \Illuminate\Database\Connection  $connection
      * @return void
      */
     public function __construct(Connection $connection)
@@ -68,7 +68,7 @@ class Builder
     /**
      * Create all tables.
      *
-     * @param array $metadata
+     * @param  array  $metadata
      * @return array
      */
     public function create(array $metadata)
@@ -85,11 +85,11 @@ class Builder
     /**
      * Update all tables.
      *
-     * @param array $metadata
-     * @param boolean $saveMode
+     * @param  array  $metadata
+     * @param  bool  $saveMode
      * @return array
      */
-    public function update(array $metadata, $saveMode=false)
+    public function update(array $metadata, $saveMode = false)
     {
         $fromSchema = $this->schemaManager->createSchema();
         $toSchema = $this->getSchemaFromMetadata($metadata);
@@ -111,7 +111,7 @@ class Builder
     /**
      * Drop all tables.
      *
-     * @param array $metadata
+     * @param  array  $metadata
      * @return array
      */
     public function drop(array $metadata)
@@ -138,7 +138,7 @@ class Builder
     /**
      * Execute the statements against the database.
      *
-     * @param  array $statements
+     * @param  array  $statements
      * @return void
      */
     protected function build($statements)
@@ -151,7 +151,7 @@ class Builder
     /**
      * Create schema instance from metadata
      *
-     * @param array $metadata
+     * @param  array  $metadata
      * @return \Doctrine\DBAL\Schema\Schema
      */
     public function getSchemaFromMetadata(array $metadata)
@@ -186,7 +186,7 @@ class Builder
      * Generate a table from metadata.
      *
      * @param table \Doctrine\DBAL\Schema\Schema
-     * @param \ProAI\Datamapper\Metadata\Definitions\Table $tableMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Table  $tableMetadata
      * @return void
      */
     protected function generateTableFromMetadata($schema, TableDefinition $tableMetadata)
@@ -231,7 +231,7 @@ class Builder
     /**
      * Get the doctrine column type.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Column $columnMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Column  $columnMetadata
      * @return array
      */
     protected function getDoctrineColumnAliases(ColumnDefinition $columnMetadata)
@@ -269,7 +269,7 @@ class Builder
     /**
      * Get the doctrine column options.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Column $columnMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Column  $columnMetadata
      * @return array
      */
     protected function getDoctrineColumnOptions(ColumnDefinition $columnMetadata)

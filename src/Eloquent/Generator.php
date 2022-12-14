@@ -30,8 +30,8 @@ class Generator
     /**
      * Constructor.
      *
-     * @param \Illuminate\Filesystem\Filesystem $files
-     * @param string $path
+     * @param  \Illuminate\Filesystem\Filesystem  $files
+     * @param  string  $path
      * @return void
      */
     public function __construct(Filesystem $files, $path)
@@ -39,19 +39,19 @@ class Generator
         $this->files = $files;
         $this->path = $path;
 
-        $this->stubs['model'] = $this->files->get(__DIR__ . '/../../stubs/model.stub');
-        $this->stubs['relation'] = $this->files->get(__DIR__ . '/../../stubs/model-relation.stub');
-        $this->stubs['morph_extension'] = $this->files->get(__DIR__ . '/../../stubs/model-morph-extension.stub');
+        $this->stubs['model'] = $this->files->get(__DIR__.'/../../stubs/model.stub');
+        $this->stubs['relation'] = $this->files->get(__DIR__.'/../../stubs/model-relation.stub');
+        $this->stubs['morph_extension'] = $this->files->get(__DIR__.'/../../stubs/model-morph-extension.stub');
     }
 
     /**
      * Generate model from metadata.
      *
-     * @param array $metadata
-     * @param boolean $saveMode
+     * @param  array  $metadata
+     * @param  bool  $saveMode
      * @return void
      */
-    public function generate($metadata, $saveMode=false)
+    public function generate($metadata, $saveMode = false)
     {
         // clean or make (if not exists) model storage directory
         if (! $this->files->exists($this->path)) {
@@ -69,11 +69,11 @@ class Generator
         }
 
         // create .gitignore
-        $this->files->put($this->path . '/.gitignore', '*' . PHP_EOL . '!.gitignore');
+        $this->files->put($this->path.'/.gitignore', '*'.PHP_EOL.'!.gitignore');
 
         // create json file for metadata
         $contents = json_encode($metadata, JSON_PRETTY_PRINT);
-        $this->files->put($this->path . '/entities.json', $contents);
+        $this->files->put($this->path.'/entities.json', $contents);
     }
 
     /**
@@ -91,7 +91,7 @@ class Generator
     /**
      * Generate model from metadata.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function generateModel($entityMetadata)
@@ -127,17 +127,17 @@ class Generator
 
         // mapping data
         $this->replaceMapping($entityMetadata, $stub);
-        
+
         // relations
         $this->replaceRelations($entityMetadata['relations'], $stub);
 
-        $this->files->put($this->path . '/' . get_mapped_model_hash($entityMetadata['class']), $stub);
+        $this->files->put($this->path.'/'.get_mapped_model_hash($entityMetadata['class']), $stub);
     }
 
     /**
      * Get primary key and auto increment value.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return \ProAI\Datamapper\Metadata\Definitions\Column
      */
     protected function getPrimaryKeyColumn($entityMetadata)
@@ -187,12 +187,12 @@ class Generator
     {
         $stub = str_replace('{{mappedClass}}', "'".$name."'", $stub);
     }
-    
+
     /**
      * Replace traits.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
-     * @param string $stub
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  string  $stub
      * @return void
      */
     protected function replaceTraits($entityMetadata, &$stub)
@@ -214,15 +214,15 @@ class Generator
             $traits['autoUuid'] = 'use \ProAI\Datamapper\Eloquent\AutoUuid;';
         }
 
-        $separator = PHP_EOL . PHP_EOL . '    ';
-        $stub = str_replace('{{traits}}', implode($separator, $traits) . $separator, $stub);
+        $separator = PHP_EOL.PHP_EOL.'    ';
+        $stub = str_replace('{{traits}}', implode($separator, $traits).$separator, $stub);
     }
 
     /**
      * Does this model have an auto uuid column?
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
-     * @return boolean
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @return bool
      */
     protected function hasAutoUuidColumn($entityMetadata)
     {
@@ -234,73 +234,73 @@ class Generator
 
         return false;
     }
-    
+
     /**
      * Replace softDeletes.
      *
-     * @param boolean $option
-     * @param string $stub
+     * @param  bool  $option
+     * @param  string  $stub
      * @return void
      */
     protected function replaceSoftDeletes($option, &$stub)
     {
-        $stub = str_replace('{{softDeletes}}', $option ? 'use \ProAI\Versioning\SoftDeletes;' . PHP_EOL . PHP_EOL . '    ' : '', $stub);
+        $stub = str_replace('{{softDeletes}}', $option ? 'use \ProAI\Versioning\SoftDeletes;'.PHP_EOL.PHP_EOL.'    ' : '', $stub);
     }
-    
+
     /**
      * Replace versionable.
      *
-     * @param boolean $option
-     * @param string $stub
+     * @param  bool  $option
+     * @param  string  $stub
      * @return void
      */
     protected function replaceVersionable($versionTable, &$stub)
     {
         $option = (! empty($versionTable)) ? true : false;
-        $stub = str_replace('{{versionable}}', (! empty($versionTable)) ? 'use \ProAI\Versioning\Versionable;' . PHP_EOL . PHP_EOL . '    ' : '', $stub);
+        $stub = str_replace('{{versionable}}', (! empty($versionTable)) ? 'use \ProAI\Versioning\Versionable;'.PHP_EOL.PHP_EOL.'    ' : '', $stub);
     }
-    
+
     /**
      * Replace table name.
      *
-     * @param boolean $name
-     * @param string $stub
+     * @param  bool  $name
+     * @param  string  $stub
      * @return void
      */
     protected function replaceTable($name, &$stub)
     {
         $stub = str_replace('{{table}}', "'".$name."'", $stub);
     }
-    
+
     /**
      * Replace primary key.
      *
-     * @param string $name
-     * @param string $stub
+     * @param  string  $name
+     * @param  string  $stub
      * @return void
      */
     protected function replacePrimaryKey($name, &$stub)
     {
         $stub = str_replace('{{primaryKey}}', "'".$name."'", $stub);
     }
-    
+
     /**
      * Replace incrementing.
      *
-     * @param boolean $option
-     * @param string $stub
+     * @param  bool  $option
+     * @param  string  $stub
      * @return void
      */
     protected function replaceIncrementing($option, &$stub)
     {
         $stub = str_replace('{{incrementing}}', $option ? 'true' : 'false', $stub);
     }
-    
+
     /**
      * Replace autoUuids.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
-     * @param string $stub
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  string  $stub
      * @return void
      */
     protected function replaceAutoUuids($entityMetadata, &$stub)
@@ -315,54 +315,55 @@ class Generator
 
         $stub = str_replace('{{autoUuids}}', $this->getArrayAsText($autoUuids), $stub);
     }
-    
+
     /**
      * Replace timestamps.
      *
-     * @param boolean $option
-     * @param string $stub
+     * @param  bool  $option
+     * @param  string  $stub
      * @return void
      */
     protected function replaceTimestamps($option, &$stub)
     {
         $stub = str_replace('{{timestamps}}', $option ? 'true' : 'false', $stub);
     }
-    
+
     /**
      * Replace touches.
      *
-     * @param array $touches
-     * @param string $stub
+     * @param  array  $touches
+     * @param  string  $stub
      * @return void
      */
     protected function replaceTouches($touches, &$stub)
     {
         $stub = str_replace('{{touches}}', $this->getArrayAsText($touches), $stub);
     }
-    
+
     /**
      * Replace with.
      *
-     * @param array $with
-     * @param string $stub
+     * @param  array  $with
+     * @param  string  $stub
      * @return void
      */
     protected function replaceWith($with, &$stub)
     {
         $stub = str_replace('{{with}}', $this->getArrayAsText($with), $stub);
     }
-    
+
     /**
      * Replace versioned.
      *
-     * @param mixed $versionTable
-     * @param string $stub
+     * @param  mixed  $versionTable
+     * @param  string  $stub
      * @return void
      */
     protected function replaceVersioned($versionTable, &$stub)
     {
         if (! $versionTable) {
             $stub = str_replace('{{versioned}}', $this->getArrayAsText([]), $stub);
+
             return;
         }
 
@@ -386,12 +387,12 @@ class Generator
     {
         $stub = str_replace('{{morphClass}}', "'".$name."'", $stub);
     }
-    
+
     /**
      * Replace mapping.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
-     * @param string $stub
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  string  $stub
      * @return void
      */
     protected function replaceMapping($entityMetadata, &$stub)
@@ -417,7 +418,7 @@ class Generator
         $relations = [];
         foreach ($entityMetadata['relations'] as $relationMetadata) {
             $relation = [];
-            
+
             $relation['type'] = $relationMetadata['type'];
             if ($relation['type'] == 'belongsToMany' || $relation['type'] == 'morphToMany') {
                 $relation['inverse'] = (! empty($relationMetadata['options']['inverse']));
@@ -434,12 +435,12 @@ class Generator
 
         $stub = str_replace('{{mapping}}', $this->getArrayAsText($mapping), $stub);
     }
-    
+
     /**
      * Replace relations.
      *
-     * @param array $relations
-     * @param string $stub
+     * @param  array  $relations
+     * @param  string  $stub
      * @return void
      */
     protected function replaceRelations($relations, &$stub)
@@ -453,7 +454,7 @@ class Generator
             $options = [];
 
             if ($relation['type'] != 'morphTo') {
-                $options[] = "'" . get_mapped_model($relation['relatedEntity'], false)."'";
+                $options[] = "'".get_mapped_model($relation['relatedEntity'], false)."'";
             }
 
             foreach ($relation['options'] as $name => $option) {
@@ -471,8 +472,8 @@ class Generator
                     }
                 }
             }
-            
-            $options = implode(", ", $options);
+
+            $options = implode(', ', $options);
 
             $relationStub = str_replace('{{name}}', $relation['name'], $relationStub);
             $relationStub = str_replace('{{options}}', $options, $relationStub);
@@ -498,19 +499,19 @@ class Generator
             }
         }
 
-        $stub = str_replace('{{relations}}', implode(PHP_EOL . PHP_EOL, $textRelations), $stub);
+        $stub = str_replace('{{relations}}', implode(PHP_EOL.PHP_EOL, $textRelations), $stub);
     }
 
     /**
      * Get an array in text format.
      *
-     * @param array $array
+     * @param  array  $array
      * @return string
      */
-    protected function getArrayAsText($array, $intendBy=1)
+    protected function getArrayAsText($array, $intendBy = 1)
     {
         $intention = '';
-        for ($i=0; $i<$intendBy; $i++) {
+        for ($i = 0; $i < $intendBy; $i++) {
             $intention .= '    ';
         }
 
@@ -518,6 +519,7 @@ class Generator
 
         $text = preg_replace('/[ ]{2}/', '    ', $text);
         $text = preg_replace("/\=\>[ \n    ]+array[ ]+\(/", '=> array(', $text);
+
         return $text = preg_replace("/\n/", "\n".$intention, $text);
     }
 }

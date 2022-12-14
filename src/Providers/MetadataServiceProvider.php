@@ -2,11 +2,11 @@
 
 namespace ProAI\Datamapper\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use ProAI\Datamapper\Metadata\ClassFinder;
-use ProAI\Datamapper\Metadata\AnnotationLoader;
 use Doctrine\Common\Annotations\AnnotationReader;
-use \HaydenPierce\ClassFinder\ClassFinder as FilesystemClassFinder;
+use HaydenPierce\ClassFinder\ClassFinder as FilesystemClassFinder;
+use Illuminate\Support\ServiceProvider;
+use ProAI\Datamapper\Metadata\AnnotationLoader;
+use ProAI\Datamapper\Metadata\ClassFinder;
 
 class MetadataServiceProvider extends ServiceProvider
 {
@@ -40,7 +40,7 @@ class MetadataServiceProvider extends ServiceProvider
     {
         $app = $this->app;
 
-        $loader = new AnnotationLoader($app['files'], __DIR__ . '/../Annotations');
+        $loader = new AnnotationLoader($app['files'], __DIR__.'/../Annotations');
 
         $loader->registerAll();
     }

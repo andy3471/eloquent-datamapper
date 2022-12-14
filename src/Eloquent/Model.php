@@ -3,14 +3,11 @@
 namespace ProAI\Datamapper\Eloquent;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use ProAI\Datamapper\Eloquent\Collection;
+use Illuminate\Support\Str;
+use ProAI\Datamapper\Contracts\Entity as EntityContract;
 use ProAI\Datamapper\Support\DataTransferObject;
 use ProAI\Datamapper\Support\Proxy;
 use ProAI\Datamapper\Support\ProxyCollection;
-use ProAI\Datamapper\Contracts\Entity as EntityContract;
-use ProAI\Datamapper\Eloquent\Builder;
-use ProAI\Datamapper\Eloquent\SchemaQuery;
-use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionObject;
 
@@ -71,7 +68,7 @@ class Model extends EloquentModel
      * @param  array  $eloquentModels
      * @return \ProAI\Datamapper\Eloquent\Collection
      */
-    public function newCollection(array $eloquentModels = array())
+    public function newCollection(array $eloquentModels = [])
     {
         return new Collection($eloquentModels);
     }
@@ -79,10 +76,10 @@ class Model extends EloquentModel
     /**
      * Get a new query builder for the model's table.
      *
-     * @param string $returnType
+     * @param  string  $returnType
      * @return \ProAI\Datamapper\Eloquent\Builder
      */
-    public function newQuery($returnType=Builder::RETURN_TYPE_ELOQUENT)
+    public function newQuery($returnType = Builder::RETURN_TYPE_ELOQUENT)
     {
         $builder = $this->newQueryWithoutScopes($returnType);
 
@@ -102,10 +99,10 @@ class Model extends EloquentModel
     /**
      * Get a new query builder that doesn't have any global scopes.
      *
-     * @param string $returnType
+     * @param  string  $returnType
      * @return \Illuminate\Database\Eloquent\Builder|static
      */
-    public function newQueryWithoutScopes($returnType=Builder::RETURN_TYPE_ELOQUENT)
+    public function newQueryWithoutScopes($returnType = Builder::RETURN_TYPE_ELOQUENT)
     {
         $builder = $this->newEloquentBuilder(
             $this->newBaseQueryBuilder(),
@@ -121,10 +118,10 @@ class Model extends EloquentModel
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  \Illuminate\Database\Query\Builder  $query
      * @return \ProAI\Datamapper\Eloquent\Builder|static
      */
-    public function newEloquentBuilder($query, $returnType=Builder::RETURN_TYPE_ELOQUENT)
+    public function newEloquentBuilder($query, $returnType = Builder::RETURN_TYPE_ELOQUENT)
     {
         return new Builder($query, $returnType);
     }
@@ -132,7 +129,7 @@ class Model extends EloquentModel
     /**
      * Create a new Eloquent query builder for the model.
      *
-     * @param  \Illuminate\Database\Query\Builder $query
+     * @param  \Illuminate\Database\Query\Builder  $query
      * @return \ProAI\Datamapper\Eloquent\GraphBuilder|static
      */
     public function newGraphQuery()
@@ -202,7 +199,7 @@ class Model extends EloquentModel
             } else {
                 $relationObject = new Proxy;
             }
-            
+
             // set property
             $this->setProperty(
                 $reflectionClass,
@@ -218,10 +215,10 @@ class Model extends EloquentModel
     /**
      * Set a private property of an entity.
      *
-     * @param \ReflectionClass $reflectionClass
-     * @param object $entity
-     * @param string $name
-     * @param mixed $value
+     * @param  \ReflectionClass  $reflectionClass
+     * @param  object  $entity
+     * @param  string  $name
+     * @param  mixed  $value
      * @return void
      */
     protected function setProperty(&$reflectionClass, $entity, $name, $value)
@@ -234,18 +231,18 @@ class Model extends EloquentModel
     /**
      * Convert model to data transfer object.
      *
-     * @param array $root
-     * @param array $schema
-     * @param array $transformations
-     * @param string $path
+     * @param  array  $root
+     * @param  array  $schema
+     * @param  array  $transformations
+     * @param  string  $path
      * @return object
      */
-    public function toDataTransferObject($root, $schema, $transformations, $path='')
+    public function toDataTransferObject($root, $schema, $transformations, $path = '')
     {
         $dto = new DataTransferObject();
 
         // get morphed schema
-        if($this->morphClass) {
+        if ($this->morphClass) {
             $morphKey = '...'.Str::studly($this->morphClass);
             if (isset($schema[$morphKey])) {
                 $schema = $schema[$morphKey];
@@ -298,9 +295,9 @@ class Model extends EloquentModel
     /**
      * Convert model to plain old php object.
      *
-     * @param \ProAI\Datamapper\Contracts\Entity $entity
-     * @param string $lastObjectId
-     * @param \ProAI\Datamapper\Eloquent\Model $lastEloquentModel
+     * @param  \ProAI\Datamapper\Contracts\Entity  $entity
+     * @param  string  $lastObjectId
+     * @param  \ProAI\Datamapper\Eloquent\Model  $lastEloquentModel
      * @return \ProAI\Datamapper\Eloquent\Model
      */
     public static function newFromDatamapperObject(EntityContract $entity, $lastObjectId = null, $lastEloquentModel = null)
@@ -338,7 +335,6 @@ class Model extends EloquentModel
         foreach ($mapping['embeddeds'] as $name => $embedded) {
             $embeddedObject = $eloquentModel->getProperty($reflectionObject, $entity, $name);
 
-
             if (! empty($embeddedObject)) {
                 $embeddedReflectionObject = new ReflectionObject($embeddedObject);
 
@@ -373,7 +369,7 @@ class Model extends EloquentModel
                 } else {
                     $value = EloquentModel::newFromDatamapperObject($relationObject, spl_object_hash($this), $eloquentModel);
                 }
-                
+
                 $eloquentModel->setRelation($name, $value);
             }
         }
@@ -384,8 +380,8 @@ class Model extends EloquentModel
     /**
      * Check if attribute is auto generated and updated date.
      *
-     * @param string $attribute
-     * @return boolean
+     * @param  string  $attribute
+     * @return bool
      */
     public function isAutomaticallyUpdatedDate($attribute)
     {
@@ -398,31 +394,32 @@ class Model extends EloquentModel
         if ($this->timestamps && ($attribute == $this->getCreatedAtColumn() || $attribute == $this->getUpdatedAtColumn())) {
             return true;
         }
-        
+
         return false;
     }
 
     /**
      * Get a private property of an entity.
      *
-     * @param \ReflectionObject $reflectionObject
-     * @param object $entity
-     * @param string $name
-     * @param mixed $value
+     * @param  \ReflectionObject  $reflectionObject
+     * @param  object  $entity
+     * @param  string  $name
+     * @param  mixed  $value
      * @return mixed
      */
     protected function getProperty($reflectionObject, $entity, $name)
     {
         $property = $reflectionObject->getProperty($name);
         $property->setAccessible(true);
+
         return $property->getValue($entity);
     }
 
     /**
      * Update auto inserted/updated fields.
      *
-     * @param \ProAI\Datamapper\Contracts\Entity $entity
-     * @param string $action
+     * @param  \ProAI\Datamapper\Contracts\Entity  $entity
+     * @param  string  $action
      * @return void
      */
     public function afterSaving($entity, $action)
@@ -431,7 +428,6 @@ class Model extends EloquentModel
         $reflectionClass = new ReflectionClass($this->class);
 
         if ($updateFields = $this->getAutomaticallyUpdatedFields($entity, $action)) {
-
             // attributes
             foreach ($this->mapping['attributes'] as $attribute => $column) {
                 if (in_array($column, $updateFields)) {
@@ -453,7 +449,7 @@ class Model extends EloquentModel
                     $entity,
                     $name
                 );
-                
+
                 if (empty($embeddedObject)) {
                     $embeddedObject = $embeddedReflectionClass->newInstanceWithoutConstructor();
                 }
@@ -476,15 +472,14 @@ class Model extends EloquentModel
                     $embeddedObject
                 );
             }
-
         }
     }
 
     /**
      * Get auto inserted/updated fields.
      *
-     * @param object $entity
-     * @param string $action
+     * @param  object  $entity
+     * @param  string  $action
      * @return void
      */
     protected function getAutomaticallyUpdatedFields($entity, $action)
@@ -508,7 +503,7 @@ class Model extends EloquentModel
             }
             $updateFields[] = $this->getUpdatedAtColumn();
         }
-        
+
         // soft deletes
         if ($action == 'update' && method_exists($this, 'bootSoftDeletes')) {
             $updateFields[] = $this->getDeletedAtColumn();
@@ -541,7 +536,7 @@ class Model extends EloquentModel
         }
 
         // check embeddeds for given name
-        foreach($this->mapping['embeddeds'] as $embedded) {
+        foreach ($this->mapping['embeddeds'] as $embedded) {
             // check for embedded attributes
             if (isset($embedded['attributes'][$name])) {
                 return $embedded['attributes'][$name];

@@ -5,15 +5,14 @@ namespace ProAI\Datamapper\Support;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use ProAI\Datamapper\Contracts\ValueObject as ValueObjectContract;
 use ReflectionClass;
-use Exception;
 
 abstract class ValueObject extends Model implements ValueObjectContract
 {
     /**
      * Compare two value objects.
      *
-     * @param \ProAI\Datamapper\Contracts\ValueObject $valueObject
-     * @return boolean
+     * @param  \ProAI\Datamapper\Contracts\ValueObject  $valueObject
+     * @return bool
      */
     public function equals(ValueObjectContract $valueObject)
     {
@@ -25,12 +24,12 @@ abstract class ValueObject extends Model implements ValueObjectContract
 
         return true;
     }
-    
+
     /**
      * Build new instance from an eloquent model object.
      *
-     * @param \Illuminate\Database\Eloquent\Model $eloquentModel
-     * @param array $name
+     * @param  \Illuminate\Database\Eloquent\Model  $eloquentModel
+     * @param  array  $name
      * @return \ProAI\Datamapper\Support\ValueObject
      */
     public static function newFromEloquentObject(EloquentModel $eloquentModel, $name)
@@ -41,7 +40,7 @@ abstract class ValueObject extends Model implements ValueObjectContract
         // get model data
         $dict = [
             'mapping' => $eloquentModel->getMapping(),
-            'attributes' => $eloquentModel->getAttributes()
+            'attributes' => $eloquentModel->getAttributes(),
         ];
 
         foreach ($dict['mapping']['embeddeds'][$name]['attributes'] as $attribute => $column) {
@@ -54,15 +53,15 @@ abstract class ValueObject extends Model implements ValueObjectContract
     /**
      * Convert an instance to an eloquent model object.
      *
-     * @param \Illuminate\Database\Eloquent\Model $eloquentModel
-     * @param array $name
+     * @param  \Illuminate\Database\Eloquent\Model  $eloquentModel
+     * @param  array  $name
      * @return void
      */
     public function toEloquentObject(EloquentModel &$eloquentModel, $name)
     {
         // get model data
         $dict = [
-            'mapping' => $eloquentModel->getMapping()
+            'mapping' => $eloquentModel->getMapping(),
         ];
 
         foreach ($dict['mapping']['embeddeds'][$name]['attributes'] as $attribute => $column) {

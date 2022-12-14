@@ -14,10 +14,10 @@ class Entity extends Definition
         'morphClass' => null,
         'table' => null,
         'versionTable' => null,
-        
+
         'softDeletes' => false,
         'timestamps' => false,
-        
+
         'touches' => [],
         'with' => [],
 

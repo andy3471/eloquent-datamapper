@@ -2,8 +2,8 @@
 
 namespace ProAI\Datamapper\Support\Traits;
 
-use ProAI\Datamapper\Annotations as ORM;
 use Carbon\Carbon;
+use ProAI\Datamapper\Annotations as ORM;
 
 trait VersionableTimestamps
 {
@@ -11,7 +11,7 @@ trait VersionableTimestamps
      * @ORM\Column(type="dateTime")
      */
     protected $createdAt;
-    
+
     /**
      * @ORM\Column(type="dateTime")
      * @ORM\Versioned

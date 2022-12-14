@@ -18,7 +18,8 @@
         "doctrine/annotations": "~1.2",
         "doctrine/dbal": "~2.5",
         "symfony/finder": "^6.2",
-        "haydenpierce/class-finder": "^0.4.4"
+        "haydenpierce/class-finder": "^0.4.4",
+        "laravel/pint": "^1.2"
     },
     "autoload": {
         "psr-4": {

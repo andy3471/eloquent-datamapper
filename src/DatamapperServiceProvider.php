@@ -25,7 +25,7 @@ class DatamapperServiceProvider extends BaseServiceProvider
      */
     protected function registerConfig()
     {
-        $configPath = __DIR__ . '/../config/datamapper.php';
+        $configPath = __DIR__.'/../config/datamapper.php';
 
         $this->mergeConfigFrom($configPath, 'datamapper');
 

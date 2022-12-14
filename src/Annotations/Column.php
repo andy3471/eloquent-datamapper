@@ -19,22 +19,22 @@ final class Column implements Annotation
     public $name;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $primary = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $unique = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $index = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $nullable = false;
 
@@ -42,44 +42,44 @@ final class Column implements Annotation
      * @var mixed
      */
     public $default;
-    
+
     /**
-     * @var boolean
+     * @var bool
      */
     public $unsigned = false;
 
     /**
-     * @var integer
+     * @var int
      */
     public $length = 255;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $fixed = false;
 
     /**
-     * @var integer
+     * @var int
      */
     public $scale = 8;
 
     /**
-     * @var integer
+     * @var int
      */
     public $precision = 2;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $autoIncrement = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $autoUuid = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $versioned = false;
 }

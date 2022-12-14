@@ -3,13 +3,13 @@
 namespace ProAI\Datamapper\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use ProAI\Datamapper\Console\SchemaCreateCommand;
+use ProAI\Datamapper\Console\SchemaDropCommand;
+use ProAI\Datamapper\Console\SchemaUpdateCommand;
+use ProAI\Datamapper\Eloquent\Generator as ModelGenerator;
 use ProAI\Datamapper\Metadata\EntityScanner;
 use ProAI\Datamapper\Metadata\EntityValidator;
 use ProAI\Datamapper\Schema\Builder as SchemaBuilder;
-use ProAI\Datamapper\Eloquent\Generator as ModelGenerator;
-use ProAI\Datamapper\Console\SchemaCreateCommand;
-use ProAI\Datamapper\Console\SchemaUpdateCommand;
-use ProAI\Datamapper\Console\SchemaDropCommand;
 
 class CommandsServiceProvider extends ServiceProvider
 {
@@ -96,7 +96,7 @@ class CommandsServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         // create singletons of each command
-        $commands = array('Create', 'Update', 'Drop');
+        $commands = ['Create', 'Update', 'Drop'];
 
         foreach ($commands as $command) {
             $this->{'register'.$command.'Command'}();

@@ -8,29 +8,29 @@ use UnexpectedValueException;
 abstract class Definition extends ArrayObject
 {
     protected $keys;
-    
+
     /**
      * Constructor merges default array with input array.
      *
-     * @param array $array
+     * @param  array  $array
      * @return void
      */
-    public function __construct(array $array=[])
+    public function __construct(array $array = [])
     {
         if ($diff = array_diff(array_keys($this->keys), array_keys($array))) {
-            throw new UnexpectedValueException('Missing value(s) '.implode(", ", $diff).' in metadata definition '.get_class($this).'.');
+            throw new UnexpectedValueException('Missing value(s) '.implode(', ', $diff).' in metadata definition '.get_class($this).'.');
         }
 
         foreach ($array as $name => $value) {
             $this[$name] = $value;
         }
     }
-    
+
     /**
      * Do not allow to set more definitions.
      *
-     * @param mixed $key
-     * @param mixed $newval
+     * @param  mixed  $key
+     * @param  mixed  $newval
      * @return void
      */
     public function offsetSet($key, $newval)

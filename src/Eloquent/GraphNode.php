@@ -21,7 +21,7 @@ class GraphNode
     /**
      * Set value.
      *
-     * @param string $value
+     * @param  string  $value
      * @return $this
      */
     public function value($value)
@@ -34,7 +34,7 @@ class GraphNode
     /**
      * Set description.
      *
-     * @param string $value
+     * @param  string  $value
      * @return void
      */
     public function description($description)

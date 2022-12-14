@@ -33,7 +33,6 @@ class BaseServiceProvider extends ServiceProvider
         $this->registerHelpers();
 
         $this->app->register('ProAI\Datamapper\Providers\CommandsServiceProvider');
-
     }
 
     /**
@@ -57,7 +56,7 @@ class BaseServiceProvider extends ServiceProvider
      */
     protected function registerHelpers()
     {
-        require_once __DIR__ . '/../Support/helpers.php';
+        require_once __DIR__.'/../Support/helpers.php';
     }
 
     /**
@@ -90,7 +89,7 @@ class BaseServiceProvider extends ServiceProvider
     protected function registerEloquentModels()
     {
         $files = $this->app['files']->files(storage_path('framework/entities'));
-        
+
         foreach ($files as $file) {
             if ($this->app['files']->extension($file) == '') {
                 require_once $file;

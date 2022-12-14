@@ -2,12 +2,12 @@
 
 namespace ProAI\Datamapper\Metadata;
 
-use Exception;
 use DomainException;
+use Exception;
 use Illuminate\Support\Str;
-use UnexpectedValueException;
 use InvalidArgumentException;
 use ProAI\Datamapper\Metadata\Definitions\Entity as EntityDefinition;
+use UnexpectedValueException;
 
 class EntityValidator
 {
@@ -22,7 +22,7 @@ class EntityValidator
         'decimal', 'float', 'increments',
         'integer', 'longText', 'mediumText',
         'smallInteger', 'string', 'text',
-        'time'
+        'time',
     ];
 
     /**
@@ -34,7 +34,7 @@ class EntityValidator
         'belongsTo', 'belongsToMany', 'hasMany',
         'hasManyThrough', 'hasOne', 'morphedByMany',
         'morphMany', 'morphOne', 'morphTo',
-        'morphToMany'
+        'morphToMany',
     ];
 
     /**
@@ -49,8 +49,8 @@ class EntityValidator
     /**
      * Check if class exists.
      *
-     * @param string $class
-     * @param array $classAnnotations
+     * @param  string  $class
+     * @param  array  $classAnnotations
      * @return void
      */
     public function validateEmbeddedClass($class, $classAnnotations)
@@ -71,9 +71,9 @@ class EntityValidator
     /**
      * Check if class exists.
      *
-     * @param string $class
-     * @param string $definedClass
-     * @return boolean
+     * @param  string  $class
+     * @param  string  $definedClass
+     * @return bool
      */
     public function validateClass($class, $definedClass)
     {
@@ -89,9 +89,9 @@ class EntityValidator
     /**
      * Check if name is not snake case.
      *
-     * @param string $name
-     * @param string $definedClass
-     * @return boolean
+     * @param  string  $name
+     * @param  string  $definedClass
+     * @return bool
      */
     public function validateName($name, $definedClass)
     {
@@ -105,7 +105,7 @@ class EntityValidator
     /**
      * Validate a column type.
      *
-     * @param string $type
+     * @param  string  $type
      * @return void
      */
     public function validateColumnType($type)
@@ -118,7 +118,7 @@ class EntityValidator
     /**
      * Validate a relation type.
      *
-     * @param string $type
+     * @param  string  $type
      * @return void
      */
     public function validateRelationType($type)
@@ -131,7 +131,7 @@ class EntityValidator
     /**
      * Validate the number of primary keys.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validatePrimaryKey(EntityDefinition $entityMetadata)
@@ -146,16 +146,16 @@ class EntityValidator
         }
 
         if ($countPrimaryKeys == 0) {
-            throw new DomainException('No primary key defined in class ' . $entityMetadata['class'] . '.');
+            throw new DomainException('No primary key defined in class '.$entityMetadata['class'].'.');
         } elseif ($countPrimaryKeys > 1) {
-            throw new DomainException('No composite primary keys allowed for class ' . $entityMetadata['class'] . '.');
+            throw new DomainException('No composite primary keys allowed for class '.$entityMetadata['class'].'.');
         }
     }
 
     /**
      * Validate the timestamps columns.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validateTimestamps(EntityDefinition $entityMetadata)
@@ -175,14 +175,14 @@ class EntityValidator
         }
 
         if (! in_array('created_at', $columnNames) || ! in_array('updated_at', $columnNames)) {
-            throw new DomainException('@Timestamps annotation defined in class ' . $entityMetadata['class'] . ' requires a $createdAt and an $updatedAt column property.');
+            throw new DomainException('@Timestamps annotation defined in class '.$entityMetadata['class'].' requires a $createdAt and an $updatedAt column property.');
         }
     }
 
     /**
      * Validate the softdeletes column.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validateSoftDeletes(EntityDefinition $entityMetadata)
@@ -202,14 +202,14 @@ class EntityValidator
         }
 
         if (! in_array('deleted_at', $columnNames)) {
-            throw new DomainException('@SoftDeletes annotation defined in class ' . $entityMetadata['class'] . ' requires a $deletedAt column property.');
+            throw new DomainException('@SoftDeletes annotation defined in class '.$entityMetadata['class'].' requires a $deletedAt column property.');
         }
     }
 
     /**
      * Validate the version table.
      *
-     * @param \ProAI\Datamapper\Metadata\Definitions\Entity $entityMetadata
+     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validateVersionTable(EntityDefinition $entityMetadata)
@@ -224,7 +224,7 @@ class EntityValidator
         }
 
         if (! in_array('latest_version', $columnNames)) {
-            throw new DomainException('@Versionable annotation defined in class ' . $entityMetadata['class'] . ' requires a $latestVersion column property.');
+            throw new DomainException('@Versionable annotation defined in class '.$entityMetadata['class'].' requires a $latestVersion column property.');
         }
 
         $columnNames = [];
@@ -241,17 +241,17 @@ class EntityValidator
         }
 
         if (! in_array('version', $columnNames) || ! $versionPrimaryKey) {
-            throw new DomainException('@Versionable annotation defined in class ' . $entityMetadata['class'] . ' requires a $version property column, which is a primary key.');
+            throw new DomainException('@Versionable annotation defined in class '.$entityMetadata['class'].' requires a $version property column, which is a primary key.');
         }
         if ($countPrimaryKeys > 2) {
-            throw new DomainException('No more than 2 primary keys are allowed for version table in class ' . $entityMetadata['class'] . '.');
+            throw new DomainException('No more than 2 primary keys are allowed for version table in class '.$entityMetadata['class'].'.');
         }
     }
 
     /**
      * Check if pivot tables of bi-directional relations are identically.
      *
-     * @param array $metadata
+     * @param  array  $metadata
      * @return void
      */
     public function validatePivotTables($metadata)

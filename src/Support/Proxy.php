@@ -2,11 +2,11 @@
 
 namespace ProAI\Datamapper\Support;
 
-use ProAI\Datamapper\Contracts\Proxy as ProxyContract;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
 use ArrayAccess;
 use Exception;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+use ProAI\Datamapper\Contracts\Proxy as ProxyContract;
 
 class Proxy implements ProxyContract, ArrayAccess, Arrayable, Jsonable
 {
@@ -20,7 +20,7 @@ class Proxy implements ProxyContract, ArrayAccess, Arrayable, Jsonable
     {
         return json_encode($this->toArray(), $options);
     }
-    
+
     /**
      * Convert the entity instance to an array.
      *
@@ -91,7 +91,7 @@ class Proxy implements ProxyContract, ArrayAccess, Arrayable, Jsonable
      * Handle dynamic method calls into the model.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      * @return mixed
      */
     public function __call($method, $parameters)

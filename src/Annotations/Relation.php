@@ -74,7 +74,7 @@ final class Relation implements Annotation
     public $morphId;
 
     /**
-     * @var boolean
+     * @var bool
      */
     public $inverse = false;
 

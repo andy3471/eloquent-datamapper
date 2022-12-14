@@ -2,11 +2,9 @@
 
 namespace ProAI\Datamapper\Support;
 
-use ProAI\Datamapper\Eloquent\Model as EloquentModel;
-use ProAI\Datamapper\Eloquent\Collection as EloquentCollection;
 use ProAI\Datamapper\Contracts\Entity as EntityContract;
-use ProAI\Datamapper\Support\Proxy;
-use ProAI\Datamapper\Support\ProxyCollection;
+use ProAI\Datamapper\Eloquent\Collection as EloquentCollection;
+use ProAI\Datamapper\Eloquent\Model as EloquentModel;
 use ReflectionClass;
 
 abstract class Entity extends Model implements EntityContract
@@ -14,7 +12,7 @@ abstract class Entity extends Model implements EntityContract
     /**
      * Build new instance from an eloquent model object.
      *
-     * @param \Illuminate\Database\Eloquent\Model $eloquentModel
+     * @param  \Illuminate\Database\Eloquent\Model  $eloquentModel
      * @return \ProAI\Datamapper\Support\Entity
      */
     public static function newFromEloquentObject(EloquentModel $eloquentModel)
@@ -26,7 +24,7 @@ abstract class Entity extends Model implements EntityContract
         $dict = [
             'mapping' => $eloquentModel->getMapping(),
             'attributes' => $eloquentModel->getAttributes(),
-            'relations' => $eloquentModel->getRelations()
+            'relations' => $eloquentModel->getRelations(),
         ];
 
         // attributes
@@ -49,7 +47,7 @@ abstract class Entity extends Model implements EntityContract
             } else {
                 $relationObject = new Proxy;
             }
-            
+
             $entity->{$name} = $relationObject;
         }
 
@@ -59,8 +57,8 @@ abstract class Entity extends Model implements EntityContract
     /**
      * Convert an instance to an eloquent model object.
      *
-     * @param string $lastObjectId
-     * @param \ProAI\Datamapper\Eloquent\Model $lastEloquentModel
+     * @param  string  $lastObjectId
+     * @param  \ProAI\Datamapper\Eloquent\Model  $lastEloquentModel
      * @return \ProAI\Datamapper\Eloquent\Model
      */
     public function toEloquentObject($lastObjectId, $lastEloquentModel)
@@ -73,7 +71,7 @@ abstract class Entity extends Model implements EntityContract
         $dict = [
             'mapping' => $eloquentModel->getMapping(),
             'attributes' => $eloquentModel->getAttributes(),
-            'relations' => $eloquentModel->getRelations()
+            'relations' => $eloquentModel->getRelations(),
         ];
 
         // attributes
@@ -105,7 +103,7 @@ abstract class Entity extends Model implements EntityContract
                 } else {
                     $value = EloquentModel::newFromDatamapperObject($relationObject, spl_object_hash($this), $eloquentModel);
                 }
-                
+
                 $eloquentModel->setRelation($name, $value);
             }
         }
