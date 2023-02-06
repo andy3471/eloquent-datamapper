@@ -1,13 +1,13 @@
 <?php
 
-namespace ProAI\Datamapper\Schema;
+namespace AndyH\Datamapper\Schema;
 
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Visitor\DropSchemaSqlCollector;
 use Illuminate\Database\Connection;
-use ProAI\Datamapper\Metadata\Definitions\Column as ColumnDefinition;
-use ProAI\Datamapper\Metadata\Definitions\Table as TableDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Column as ColumnDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Table as TableDefinition;
 
 class Builder
 {
@@ -186,7 +186,7 @@ class Builder
      * Generate a table from metadata.
      *
      * @param table \Doctrine\DBAL\Schema\Schema
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Table  $tableMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Table  $tableMetadata
      * @return void
      */
     protected function generateTableFromMetadata($schema, TableDefinition $tableMetadata)
@@ -231,7 +231,7 @@ class Builder
     /**
      * Get the doctrine column type.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Column  $columnMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Column  $columnMetadata
      * @return array
      */
     protected function getDoctrineColumnAliases(ColumnDefinition $columnMetadata)
@@ -269,7 +269,7 @@ class Builder
     /**
      * Get the doctrine column options.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Column  $columnMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Column  $columnMetadata
      * @return array
      */
     protected function getDoctrineColumnOptions(ColumnDefinition $columnMetadata)

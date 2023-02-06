@@ -1,8 +1,8 @@
 <?php
 
-namespace ProAI\Datamapper;
+namespace AndyH\Datamapper;
 
-use ProAI\Datamapper\Providers\BaseServiceProvider;
+use AndyH\Datamapper\Providers\BaseServiceProvider;
 
 class DatamapperServiceProvider extends BaseServiceProvider
 {

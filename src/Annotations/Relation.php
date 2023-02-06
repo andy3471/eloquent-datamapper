@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Annotations;
+namespace AndyH\Datamapper\Annotations;
 
 /**
  * @Annotation

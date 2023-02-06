@@ -1,8 +1,8 @@
 <?php
 
-namespace ProAI\Datamapper\Support;
+namespace AndyH\Datamapper\Support;
 
-use ProAI\Datamapper\Contracts\Model as ModelContract;
+use AndyH\Datamapper\Contracts\Model as ModelContract;
 
 abstract class Model implements ModelContract
 {
@@ -39,7 +39,7 @@ abstract class Model implements ModelContract
             if (is_scalar($this->{$scalarProperty})) {
                 return $this->{$scalarProperty};
             }
-            if ($this->{$scalarProperty} instanceof \ProAI\Datamapper\Support\ValueObject) {
+            if ($this->{$scalarProperty} instanceof \AndyH\Datamapper\Support\ValueObject) {
                 return (string) $this->{$scalarProperty};
             }
         }

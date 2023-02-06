@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Support;
+namespace AndyH\Datamapper\Support;
 
 class DataTransferObject
 {

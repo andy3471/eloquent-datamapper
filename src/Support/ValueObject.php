@@ -1,9 +1,9 @@
 <?php
 
-namespace ProAI\Datamapper\Support;
+namespace AndyH\Datamapper\Support;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
-use ProAI\Datamapper\Contracts\ValueObject as ValueObjectContract;
+use AndyH\Datamapper\Contracts\ValueObject as ValueObjectContract;
 use ReflectionClass;
 
 abstract class ValueObject extends Model implements ValueObjectContract
@@ -11,7 +11,7 @@ abstract class ValueObject extends Model implements ValueObjectContract
     /**
      * Compare two value objects.
      *
-     * @param  \ProAI\Datamapper\Contracts\ValueObject  $valueObject
+     * @param  \AndyH\Datamapper\Contracts\ValueObject  $valueObject
      * @return bool
      */
     public function equals(ValueObjectContract $valueObject)
@@ -30,7 +30,7 @@ abstract class ValueObject extends Model implements ValueObjectContract
      *
      * @param  \Illuminate\Database\Eloquent\Model  $eloquentModel
      * @param  array  $name
-     * @return \ProAI\Datamapper\Support\ValueObject
+     * @return \AndyH\Datamapper\Support\ValueObject
      */
     public static function newFromEloquentObject(EloquentModel $eloquentModel, $name)
     {

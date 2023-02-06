@@ -1,11 +1,11 @@
 <?php
 
-namespace ProAI\Datamapper\Support\Facades;
+namespace AndyH\Datamapper\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \ProAI\Datamapper\EntityManager
+ * @see \AndyH\Datamapper\EntityManager
  */
 class EntityManager extends Facade
 {

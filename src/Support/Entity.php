@@ -1,10 +1,10 @@
 <?php
 
-namespace ProAI\Datamapper\Support;
+namespace AndyH\Datamapper\Support;
 
-use ProAI\Datamapper\Contracts\Entity as EntityContract;
-use ProAI\Datamapper\Eloquent\Collection as EloquentCollection;
-use ProAI\Datamapper\Eloquent\Model as EloquentModel;
+use AndyH\Datamapper\Contracts\Entity as EntityContract;
+use AndyH\Datamapper\Eloquent\Collection as EloquentCollection;
+use AndyH\Datamapper\Eloquent\Model as EloquentModel;
 use ReflectionClass;
 
 abstract class Entity extends Model implements EntityContract
@@ -13,7 +13,7 @@ abstract class Entity extends Model implements EntityContract
      * Build new instance from an eloquent model object.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $eloquentModel
-     * @return \ProAI\Datamapper\Support\Entity
+     * @return \AndyH\Datamapper\Support\Entity
      */
     public static function newFromEloquentObject(EloquentModel $eloquentModel)
     {
@@ -58,8 +58,8 @@ abstract class Entity extends Model implements EntityContract
      * Convert an instance to an eloquent model object.
      *
      * @param  string  $lastObjectId
-     * @param  \ProAI\Datamapper\Eloquent\Model  $lastEloquentModel
-     * @return \ProAI\Datamapper\Eloquent\Model
+     * @param  \AndyH\Datamapper\Eloquent\Model  $lastEloquentModel
+     * @return \AndyH\Datamapper\Eloquent\Model
      */
     public function toEloquentObject($lastObjectId, $lastEloquentModel)
     {
@@ -94,9 +94,9 @@ abstract class Entity extends Model implements EntityContract
         foreach ($dict['mapping']['relations'] as $name => $relation) {
             $relationObject = $this->{$name};
 
-            if (! empty($relationObject) && ! $relationObject instanceof \ProAI\Datamapper\Contracts\Proxy) {
+            if (! empty($relationObject) && ! $relationObject instanceof \AndyH\Datamapper\Contracts\Proxy) {
                 // set relation
-                if ($relationObject instanceof \ProAI\Datamapper\Support\Collection) {
+                if ($relationObject instanceof \AndyH\Datamapper\Support\Collection) {
                     $value = EloquentCollection::newFromDatamapperObject($relationObject, $this, $eloquentModel);
                 } elseif (spl_object_hash($relationObject) == $lastObjectId) {
                     $value = $lastEloquentModel;

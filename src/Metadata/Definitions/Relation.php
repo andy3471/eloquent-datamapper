@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Metadata\Definitions;
+namespace AndyH\Datamapper\Metadata\Definitions;
 
 class Relation extends Definition
 {

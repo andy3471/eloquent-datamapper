@@ -1,13 +1,13 @@
 {
-    "name": "proai/laravel-datamapper",
+    "name": "andyh/eloquent-datamapper",
     "description": "An easy to use data mapper for Laravel 5 that fits perfectly to the approach of Domain Driven Design (DDD).",
     "keywords": ["laravel","orm","mapper","datamapper","query","querybuilder","entity", "repository"],
-    "homepage": "http://github.com/proai/laravel-datamapper",
+    "homepage": "http://github.com/andy3471/eloquent-datamapper",
     "license": "MIT",
     "authors": [
         {
-            "name": "Markus J. Wetzel",
-            "email": "markuswetzel@gmx.net"
+            "name": "Andrew Hargrave",
+            "email": "me@andyh.app"
         }
     ],
     "require": {
@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "ProAI\\Datamapper\\": "src/"
+            "AndyH\\Datamapper\\": "src/"
         }
     },
     "extra": {

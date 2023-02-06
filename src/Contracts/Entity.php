@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Contracts;
+namespace AndyH\Datamapper\Contracts;
 
 interface Entity extends Model
 {

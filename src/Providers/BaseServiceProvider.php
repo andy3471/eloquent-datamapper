@@ -1,9 +1,9 @@
 <?php
 
-namespace ProAI\Datamapper\Providers;
+namespace AndyH\Datamapper\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use ProAI\Datamapper\EntityManager;
+use AndyH\Datamapper\EntityManager;
 
 class BaseServiceProvider extends ServiceProvider
 {
@@ -32,7 +32,7 @@ class BaseServiceProvider extends ServiceProvider
 
         $this->registerHelpers();
 
-        $this->app->register('ProAI\Datamapper\Providers\CommandsServiceProvider');
+        $this->app->register('AndyH\Datamapper\Providers\CommandsServiceProvider');
     }
 
     /**

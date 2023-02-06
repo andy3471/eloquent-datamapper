@@ -1,9 +1,9 @@
 <?php
 
-namespace ProAI\Datamapper\Support\Traits;
+namespace AndyH\Datamapper\Support\Traits;
 
 use Carbon\Carbon;
-use ProAI\Datamapper\Annotations as ORM;
+use AndyH\Datamapper\Annotations as ORM;
 
 trait VersionableTimestamps
 {

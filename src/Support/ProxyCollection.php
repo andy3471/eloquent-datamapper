@@ -1,8 +1,8 @@
 <?php
 
-namespace ProAI\Datamapper\Support;
+namespace AndyH\Datamapper\Support;
 
-use ProAI\Datamapper\Contracts\Proxy as ProxyContract;
+use AndyH\Datamapper\Contracts\Proxy as ProxyContract;
 
 class ProxyCollection extends Collection implements ProxyContract
 {

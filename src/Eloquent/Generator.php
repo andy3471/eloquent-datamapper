@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Eloquent;
+namespace AndyH\Datamapper\Eloquent;
 
 use Illuminate\Filesystem\Filesystem;
 
@@ -91,7 +91,7 @@ class Generator
     /**
      * Generate model from metadata.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function generateModel($entityMetadata)
@@ -137,8 +137,8 @@ class Generator
     /**
      * Get primary key and auto increment value.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
-     * @return \ProAI\Datamapper\Metadata\Definitions\Column
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @return \AndyH\Datamapper\Metadata\Definitions\Column
      */
     protected function getPrimaryKeyColumn($entityMetadata)
     {
@@ -191,7 +191,7 @@ class Generator
     /**
      * Replace traits.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @param  string  $stub
      * @return void
      */
@@ -201,17 +201,17 @@ class Generator
 
         // versionable
         if (! empty($entityMetadata['versionTable'])) {
-            $traits['versionable'] = 'use \ProAI\Versioning\Versionable;';
+            $traits['versionable'] = 'use \AndyH\Versioning\Versionable;';
         }
 
         // softDeletes
         if ($entityMetadata['softDeletes']) {
-            $traits['softDeletes'] = 'use \ProAI\Versioning\SoftDeletes;';
+            $traits['softDeletes'] = 'use \AndyH\Versioning\SoftDeletes;';
         }
 
         // autoUuid
         if ($this->hasAutoUuidColumn($entityMetadata)) {
-            $traits['autoUuid'] = 'use \ProAI\Datamapper\Eloquent\AutoUuid;';
+            $traits['autoUuid'] = 'use \AndyH\Datamapper\Eloquent\AutoUuid;';
         }
 
         $separator = PHP_EOL.PHP_EOL.'    ';
@@ -221,7 +221,7 @@ class Generator
     /**
      * Does this model have an auto uuid column?
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return bool
      */
     protected function hasAutoUuidColumn($entityMetadata)
@@ -244,7 +244,7 @@ class Generator
      */
     protected function replaceSoftDeletes($option, &$stub)
     {
-        $stub = str_replace('{{softDeletes}}', $option ? 'use \ProAI\Versioning\SoftDeletes;'.PHP_EOL.PHP_EOL.'    ' : '', $stub);
+        $stub = str_replace('{{softDeletes}}', $option ? 'use \AndyH\Versioning\SoftDeletes;'.PHP_EOL.PHP_EOL.'    ' : '', $stub);
     }
 
     /**
@@ -257,7 +257,7 @@ class Generator
     protected function replaceVersionable($versionTable, &$stub)
     {
         $option = (! empty($versionTable)) ? true : false;
-        $stub = str_replace('{{versionable}}', (! empty($versionTable)) ? 'use \ProAI\Versioning\Versionable;'.PHP_EOL.PHP_EOL.'    ' : '', $stub);
+        $stub = str_replace('{{versionable}}', (! empty($versionTable)) ? 'use \AndyH\Versioning\Versionable;'.PHP_EOL.PHP_EOL.'    ' : '', $stub);
     }
 
     /**
@@ -299,7 +299,7 @@ class Generator
     /**
      * Replace autoUuids.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @param  string  $stub
      * @return void
      */
@@ -391,7 +391,7 @@ class Generator
     /**
      * Replace mapping.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @param  string  $stub
      * @return void
      */

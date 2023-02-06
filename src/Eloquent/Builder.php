@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Eloquent;
+namespace AndyH\Datamapper\Eloquent;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder as BaseBuilder;

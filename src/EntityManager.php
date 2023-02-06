@@ -1,10 +1,10 @@
 <?php
 
-namespace ProAI\Datamapper;
+namespace AndyH\Datamapper;
 
 use Exception;
-use ProAI\Datamapper\Eloquent\Builder;
-use ProAI\Datamapper\Eloquent\Model;
+use AndyH\Datamapper\Eloquent\Builder;
+use AndyH\Datamapper\Eloquent\Model;
 
 class EntityManager
 {
@@ -36,7 +36,7 @@ class EntityManager
      * Get a new schema query instance.
      *
      * @param  string  $class
-     * @return \ProAI\Datamapper\Eloquent\GraphBuilder
+     * @return \AndyH\Datamapper\Eloquent\GraphBuilder
      */
     public function newGraphQuery($class)
     {
@@ -99,7 +99,7 @@ class EntityManager
     /**
      * Update relations.
      *
-     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  \AndyH\Datamapper\Eloquent\Model  $eloquentModel
      * @param  string  $action
      * @return void
      */
@@ -118,7 +118,7 @@ class EntityManager
     /**
      * Update a relation.
      *
-     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  \AndyH\Datamapper\Eloquent\Model  $eloquentModel
      * @param  string  $name
      * @param  array  $relationMapping
      * @param  string  $action
@@ -140,7 +140,7 @@ class EntityManager
     /**
      * Update a belongsTo or morphTo relation.
      *
-     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  \AndyH\Datamapper\Eloquent\Model  $eloquentModel
      * @param  string  $name
      * @param  string  $action
      * @return void
@@ -155,7 +155,7 @@ class EntityManager
     /**
      * Update a belongsToMany or morphToMany relation.
      *
-     * @param  \ProAI\Datamapper\Eloquent\Model  $eloquentModel
+     * @param  \AndyH\Datamapper\Eloquent\Model  $eloquentModel
      * @param  string  $name
      * @param  string  $action
      * @return void
@@ -191,7 +191,7 @@ class EntityManager
      * Delete an entity object.
      *
      * @param  object  $entity
-     * @return \ProAI\Datamapper\Eloquent\Model
+     * @return \AndyH\Datamapper\Eloquent\Model
      */
     protected function getEloquentModel($entity, $exists = false)
     {

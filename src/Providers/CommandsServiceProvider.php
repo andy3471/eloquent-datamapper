@@ -1,15 +1,15 @@
 <?php
 
-namespace ProAI\Datamapper\Providers;
+namespace AndyH\Datamapper\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use ProAI\Datamapper\Console\SchemaCreateCommand;
-use ProAI\Datamapper\Console\SchemaDropCommand;
-use ProAI\Datamapper\Console\SchemaUpdateCommand;
-use ProAI\Datamapper\Eloquent\Generator as ModelGenerator;
-use ProAI\Datamapper\Metadata\EntityScanner;
-use ProAI\Datamapper\Metadata\EntityValidator;
-use ProAI\Datamapper\Schema\Builder as SchemaBuilder;
+use AndyH\Datamapper\Console\SchemaCreateCommand;
+use AndyH\Datamapper\Console\SchemaDropCommand;
+use AndyH\Datamapper\Console\SchemaUpdateCommand;
+use AndyH\Datamapper\Eloquent\Generator as ModelGenerator;
+use AndyH\Datamapper\Metadata\EntityScanner;
+use AndyH\Datamapper\Metadata\EntityValidator;
+use AndyH\Datamapper\Schema\Builder as SchemaBuilder;
 
 class CommandsServiceProvider extends ServiceProvider
 {
@@ -27,7 +27,7 @@ class CommandsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->register('ProAI\Datamapper\Providers\MetadataServiceProvider');
+        $this->app->register('AndyH\Datamapper\Providers\MetadataServiceProvider');
 
         $this->registerEntityScanner();
 

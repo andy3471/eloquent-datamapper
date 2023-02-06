@@ -1,12 +1,12 @@
 <?php
 
-namespace ProAI\Datamapper\Support;
+namespace AndyH\Datamapper\Support;
 
 use ArrayAccess;
 use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use ProAI\Datamapper\Contracts\Proxy as ProxyContract;
+use AndyH\Datamapper\Contracts\Proxy as ProxyContract;
 
 class Proxy implements ProxyContract, ArrayAccess, Arrayable, Jsonable
 {

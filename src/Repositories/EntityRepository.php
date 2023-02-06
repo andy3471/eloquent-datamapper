@@ -1,9 +1,9 @@
 <?php
 
-namespace ProAI\Datamapper\Repositories;
+namespace AndyH\Datamapper\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
-use ProAI\Datamapper\EntityManager;
+use AndyH\Datamapper\EntityManager;
 
 class EntityRepository
 {

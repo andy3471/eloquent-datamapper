@@ -1,16 +1,16 @@
 <?php
 
-namespace ProAI\Datamapper\Metadata;
+namespace AndyH\Datamapper\Metadata;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Illuminate\Support\Str;
-use ProAI\Datamapper\Annotations\Annotation;
-use ProAI\Datamapper\Metadata\Definitions\Attribute as AttributeDefinition;
-use ProAI\Datamapper\Metadata\Definitions\Column as ColumnDefinition;
-use ProAI\Datamapper\Metadata\Definitions\EmbeddedClass as EmbeddedClassDefinition;
-use ProAI\Datamapper\Metadata\Definitions\Entity as EntityDefinition;
-use ProAI\Datamapper\Metadata\Definitions\Relation as RelationDefinition;
-use ProAI\Datamapper\Metadata\Definitions\Table as TableDefinition;
+use AndyH\Datamapper\Annotations\Annotation;
+use AndyH\Datamapper\Metadata\Definitions\Attribute as AttributeDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Column as ColumnDefinition;
+use AndyH\Datamapper\Metadata\Definitions\EmbeddedClass as EmbeddedClassDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Entity as EntityDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Relation as RelationDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Table as TableDefinition;
 use ReflectionClass;
 
 class EntityScanner
@@ -25,7 +25,7 @@ class EntityScanner
     /**
      * The metadata validator instance.
      *
-     * @var \ProAI\Datamapper\Metadata\Validator
+     * @var \AndyH\Datamapper\Metadata\Validator
      */
     protected $validator;
 
@@ -47,7 +47,7 @@ class EntityScanner
      * Create a new metadata builder instance.
      *
      * @param  \Doctrine\Common\Annotations\AnnotationReader  $reader
-     * @param  \ProAI\Datamapper\Metadata\EntityValidator  $validator
+     * @param  \AndyH\Datamapper\Metadata\EntityValidator  $validator
      * @param  array  $config
      * @return void
      */
@@ -101,7 +101,7 @@ class EntityScanner
         $reflectionClass = new ReflectionClass($class);
 
         // check if class is entity
-        if ($this->reader->getClassAnnotation($reflectionClass, '\ProAI\Datamapper\Annotations\Entity')) {
+        if ($this->reader->getClassAnnotation($reflectionClass, '\AndyH\Datamapper\Annotations\Entity')) {
             return $this->parseEntity($class);
         } else {
             return null;
@@ -146,7 +146,7 @@ class EntityScanner
         // find entity parameters and plugins
         foreach ($classAnnotations as $annotation) {
             // entity parameters
-            if ($annotation instanceof \ProAI\Datamapper\Annotations\Entity) {
+            if ($annotation instanceof \AndyH\Datamapper\Annotations\Entity) {
                 if (! empty($annotation->morphClass)) {
                     $entityMetadata['morphClass'] = $annotation->morphClass;
                 }
@@ -159,24 +159,24 @@ class EntityScanner
             }
 
             // softdeletes
-            if ($annotation instanceof \ProAI\Datamapper\Annotations\SoftDeletes) {
+            if ($annotation instanceof \AndyH\Datamapper\Annotations\SoftDeletes) {
                 $entityMetadata['softDeletes'] = true;
             }
 
             // table name
-            if ($annotation instanceof \ProAI\Datamapper\Annotations\Table) {
+            if ($annotation instanceof \AndyH\Datamapper\Annotations\Table) {
                 $entityMetadata['table']['name'] = $annotation->name;
             }
 
             // timestamps
-            if ($annotation instanceof \ProAI\Datamapper\Annotations\Timestamps) {
+            if ($annotation instanceof \AndyH\Datamapper\Annotations\Timestamps) {
                 $entityMetadata['timestamps'] = true;
             }
         }
 
         // find versionable annotation (2nd loop, because table name is required)
         foreach ($classAnnotations as $annotation) {
-            if ($annotation instanceof \ProAI\Datamapper\Annotations\Versionable) {
+            if ($annotation instanceof \AndyH\Datamapper\Annotations\Versionable) {
                 $entityMetadata['versionTable'] = new TableDefinition([
                     'name' => $entityMetadata['table']['name'].'_version',
                     'columns' => [],
@@ -191,14 +191,14 @@ class EntityScanner
 
             foreach ($propertyAnnotations as $annotation) {
                 // column
-                if ($annotation instanceof \ProAI\Datamapper\Annotations\Column) {
+                if ($annotation instanceof \AndyH\Datamapper\Annotations\Column) {
                     $this->setAdditionalColumnProperties($name, $annotation, $propertyAnnotations);
 
                     $this->parseColumn($name, $annotation, $entityMetadata, false, true);
                 }
 
                 // embedded class
-                if ($annotation instanceof \ProAI\Datamapper\Annotations\Embedded) {
+                if ($annotation instanceof \AndyH\Datamapper\Annotations\Embedded) {
                     $this->parseEmbeddedClass($name, $annotation, $entityMetadata, true);
                 }
             }
@@ -214,19 +214,19 @@ class EntityScanner
 
             foreach ($propertyAnnotations as $annotation) {
                 // column
-                if ($annotation instanceof \ProAI\Datamapper\Annotations\Column) {
+                if ($annotation instanceof \AndyH\Datamapper\Annotations\Column) {
                     $this->setAdditionalColumnProperties($name, $annotation, $propertyAnnotations);
 
                     $entityMetadata['attributes'][] = $this->parseColumn($name, $annotation, $entityMetadata);
                 }
 
                 // embedded class
-                if ($annotation instanceof \ProAI\Datamapper\Annotations\Embedded) {
+                if ($annotation instanceof \AndyH\Datamapper\Annotations\Embedded) {
                     $entityMetadata['embeddeds'][] = $this->parseEmbeddedClass($name, $annotation, $entityMetadata);
                 }
 
                 // relation
-                if ($annotation instanceof \ProAI\Datamapper\Annotations\Relation) {
+                if ($annotation instanceof \AndyH\Datamapper\Annotations\Relation) {
                     $entityMetadata['relations'][] = $this->parseRelation($name, $annotation, $entityMetadata);
                 }
             }
@@ -254,9 +254,9 @@ class EntityScanner
      * Parse an embedded class.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
-     * @return \ProAI\Datamapper\Metadata\Definitions\EmbeddedClass
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @return \AndyH\Datamapper\Metadata\Definitions\EmbeddedClass
      */
     protected function parseEmbeddedClass($name, Annotation $annotation, EntityDefinition &$entityMetadata, $primaryKeyOnly = false)
     {
@@ -289,7 +289,7 @@ class EntityScanner
 
             foreach ($propertyAnnotations as $annotation) {
                 // property is column
-                if ($annotation instanceof \ProAI\Datamapper\Annotations\Column) {
+                if ($annotation instanceof \AndyH\Datamapper\Annotations\Column) {
                     $this->setAdditionalColumnProperties($name, $annotation, $propertyAnnotations, true, $embeddedColumnPrefix);
 
                     $embeddedClassMetadata['attributes'][] = $this->parseColumn($name, $annotation, $entityMetadata, true, $primaryKeyOnly);
@@ -304,7 +304,7 @@ class EntityScanner
      * Set properties of column annotation related annotations.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
      * @param  array  $propertyAnnotations
      * @param  bool  $embedded
      * @param  mixed  $columnPrefix
@@ -315,19 +315,19 @@ class EntityScanner
         // scan for primary and versioned property
         foreach ($propertyAnnotations as $subAnnotation) {
             // set primary key
-            if ($subAnnotation instanceof \ProAI\Datamapper\Annotations\Id) {
+            if ($subAnnotation instanceof \AndyH\Datamapper\Annotations\Id) {
                 $annotation->primary = true;
             }
             // set auto increment
-            if ($subAnnotation instanceof \ProAI\Datamapper\Annotations\AutoIncrement) {
+            if ($subAnnotation instanceof \AndyH\Datamapper\Annotations\AutoIncrement) {
                 $annotation->autoIncrement = true;
             }
             // set auto increment
-            if ($subAnnotation instanceof \ProAI\Datamapper\Annotations\AutoUuid) {
+            if ($subAnnotation instanceof \AndyH\Datamapper\Annotations\AutoUuid) {
                 $annotation->autoUuid = true;
             }
             // set versioned
-            if ($subAnnotation instanceof \ProAI\Datamapper\Annotations\Versioned) {
+            if ($subAnnotation instanceof \AndyH\Datamapper\Annotations\Versioned) {
                 $annotation->versioned = true;
             }
         }
@@ -340,10 +340,10 @@ class EntityScanner
      * Parse a column.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
      * @param  bool  $embedded
-     * @return \ProAI\Datamapper\Metadata\Definitions\Attribute
+     * @return \AndyH\Datamapper\Metadata\Definitions\Attribute
      */
     protected function parseColumn($name, Annotation $annotation, EntityDefinition &$entityMetadata, $embedded = false, $primaryKeyOnly = false)
     {
@@ -368,8 +368,8 @@ class EntityScanner
      * Generate a column.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @return \ProAI\Datamapper\Metadata\Definitions\Column
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @return \AndyH\Datamapper\Metadata\Definitions\Column
      */
     protected function generateColumn($name, $annotation)
     {
@@ -393,8 +393,8 @@ class EntityScanner
      * Generate versioning table.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
      * @return void
      */
     protected function generateVersionTable($name, Annotation $annotation, EntityDefinition &$entityMetadata)
@@ -411,8 +411,8 @@ class EntityScanner
      * Generate an attribute.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @return \ProAI\Datamapper\Metadata\Definitions\Attribute
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @return \AndyH\Datamapper\Metadata\Definitions\Attribute
      */
     protected function generateAttribute($name, $annotation)
     {
@@ -427,7 +427,7 @@ class EntityScanner
     /**
      * Generate an options array for an attribute.
      *
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
      * @return array
      */
     protected function generateAttributeOptionsArray(Annotation $annotation)
@@ -464,9 +464,9 @@ class EntityScanner
      * Parse a relationship.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
-     * @return \ProAI\Datamapper\Metadata\Definitions\Relation
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @return \AndyH\Datamapper\Metadata\Definitions\Relation
      */
     protected function parseRelation($name, Annotation $annotation, EntityDefinition &$entityMetadata)
     {
@@ -523,8 +523,8 @@ class EntityScanner
      * Generate an options array for a relation.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
      * @return array
      */
     protected function generateRelationOptionsArray($name, Annotation $annotation, EntityDefinition &$entityMetadata)
@@ -609,8 +609,8 @@ class EntityScanner
      * Generate extra columns for a belongsTo relation.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
      * @return void
      */
     protected function generateBelongsToColumns($name, Annotation $annotation, EntityDefinition &$entityMetadata)
@@ -630,8 +630,8 @@ class EntityScanner
      * Generate extra columns for a morphTo relation.
      *
      * @param  array  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
      * @return void
      */
     protected function generateMorphToColumns($name, Annotation $annotation, EntityDefinition &$entityMetadata)
@@ -672,9 +672,9 @@ class EntityScanner
      * Generate pivot table for a belongsToMany relation.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
-     * @return \ProAI\Datamapper\Metadata\Definitions\Table
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @return \AndyH\Datamapper\Metadata\Definitions\Table
      */
     protected function generateBelongsToManyPivotTable($name, Annotation $annotation, EntityDefinition &$entityMetadata)
     {
@@ -709,9 +709,9 @@ class EntityScanner
      * Generate pivot table for a morphToMany relation.
      *
      * @param  string  $name
-     * @param  \ProAI\Datamapper\Annotations\Annotation  $annotation
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Class  $entityMetadata
-     * @return \ProAI\Datamapper\Metadata\Definitions\Table
+     * @param  \AndyH\Datamapper\Annotations\Annotation  $annotation
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Class  $entityMetadata
+     * @return \AndyH\Datamapper\Metadata\Definitions\Table
      */
     protected function generateMorphToManyPivotTable($name, Annotation $annotation, EntityDefinition &$entityMetadata)
     {
@@ -765,9 +765,9 @@ class EntityScanner
     /**
      * Get primary key column.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Table  $tableMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Table  $tableMetadata
      * @param  array  $data
-     * @return \ProAI\Datamapper\Metadata\Definitions\Column
+     * @return \AndyH\Datamapper\Metadata\Definitions\Column
      */
     protected function getModifiedPrimaryKeyColumn(TableDefinition $tableMetadata, array $data)
     {

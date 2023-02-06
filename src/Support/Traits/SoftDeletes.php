@@ -1,8 +1,8 @@
 <?php
 
-namespace ProAI\Datamapper\Support\Traits;
+namespace AndyH\Datamapper\Support\Traits;
 
-use ProAI\Datamapper\Annotations as ORM;
+use AndyH\Datamapper\Annotations as ORM;
 
 trait SoftDeletes
 {

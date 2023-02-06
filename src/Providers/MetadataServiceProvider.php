@@ -1,12 +1,12 @@
 <?php
 
-namespace ProAI\Datamapper\Providers;
+namespace AndyH\Datamapper\Providers;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use HaydenPierce\ClassFinder\ClassFinder as FilesystemClassFinder;
 use Illuminate\Support\ServiceProvider;
-use ProAI\Datamapper\Metadata\AnnotationLoader;
-use ProAI\Datamapper\Metadata\ClassFinder;
+use AndyH\Datamapper\Metadata\AnnotationLoader;
+use AndyH\Datamapper\Metadata\ClassFinder;
 
 class MetadataServiceProvider extends ServiceProvider
 {

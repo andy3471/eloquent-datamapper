@@ -1,13 +1,13 @@
 <?php
 
-namespace ProAI\Datamapper\Eloquent;
+namespace AndyH\Datamapper\Eloquent;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Support\Str;
-use ProAI\Datamapper\Contracts\Entity as EntityContract;
-use ProAI\Datamapper\Support\DataTransferObject;
-use ProAI\Datamapper\Support\Proxy;
-use ProAI\Datamapper\Support\ProxyCollection;
+use AndyH\Datamapper\Contracts\Entity as EntityContract;
+use AndyH\Datamapper\Support\DataTransferObject;
+use AndyH\Datamapper\Support\Proxy;
+use AndyH\Datamapper\Support\ProxyCollection;
 use ReflectionClass;
 use ReflectionObject;
 
@@ -66,7 +66,7 @@ class Model extends EloquentModel
      * Create a new Eloquent Collection instance.
      *
      * @param  array  $eloquentModels
-     * @return \ProAI\Datamapper\Eloquent\Collection
+     * @return \AndyH\Datamapper\Eloquent\Collection
      */
     public function newCollection(array $eloquentModels = [])
     {
@@ -77,7 +77,7 @@ class Model extends EloquentModel
      * Get a new query builder for the model's table.
      *
      * @param  string  $returnType
-     * @return \ProAI\Datamapper\Eloquent\Builder
+     * @return \AndyH\Datamapper\Eloquent\Builder
      */
     public function newQuery($returnType = Builder::RETURN_TYPE_ELOQUENT)
     {
@@ -119,7 +119,7 @@ class Model extends EloquentModel
      * Create a new Eloquent query builder for the model.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \ProAI\Datamapper\Eloquent\Builder|static
+     * @return \AndyH\Datamapper\Eloquent\Builder|static
      */
     public function newEloquentBuilder($query, $returnType = Builder::RETURN_TYPE_ELOQUENT)
     {
@@ -130,7 +130,7 @@ class Model extends EloquentModel
      * Create a new Eloquent query builder for the model.
      *
      * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \ProAI\Datamapper\Eloquent\GraphBuilder|static
+     * @return \AndyH\Datamapper\Eloquent\GraphBuilder|static
      */
     public function newGraphQuery()
     {
@@ -145,7 +145,7 @@ class Model extends EloquentModel
     public function toDatamapperObject()
     {
         // directly set private properties if entity extends the datamapper entity class (fast!)
-        if (is_subclass_of($this->class, '\ProAI\Datamapper\Support\Entity')) {
+        if (is_subclass_of($this->class, '\AndyH\Datamapper\Support\Entity')) {
             $class = $this->class;
 
             return $class::newFromEloquentObject($this);
@@ -295,15 +295,15 @@ class Model extends EloquentModel
     /**
      * Convert model to plain old php object.
      *
-     * @param  \ProAI\Datamapper\Contracts\Entity  $entity
+     * @param  \AndyH\Datamapper\Contracts\Entity  $entity
      * @param  string  $lastObjectId
-     * @param  \ProAI\Datamapper\Eloquent\Model  $lastEloquentModel
-     * @return \ProAI\Datamapper\Eloquent\Model
+     * @param  \AndyH\Datamapper\Eloquent\Model  $lastEloquentModel
+     * @return \AndyH\Datamapper\Eloquent\Model
      */
     public static function newFromDatamapperObject(EntityContract $entity, $lastObjectId = null, $lastEloquentModel = null)
     {
         // directly get private properties if entity extends the datamapper entity class (fast!)
-        if ($entity instanceof \ProAI\Datamapper\Support\Entity) {
+        if ($entity instanceof \AndyH\Datamapper\Support\Entity) {
             return $entity->toEloquentObject($lastObjectId, $lastEloquentModel);
         }
 
@@ -360,9 +360,9 @@ class Model extends EloquentModel
                 $name
             );
 
-            if (! empty($relationObject) && ! $relationObject instanceof \ProAI\Datamapper\Contracts\Proxy) {
+            if (! empty($relationObject) && ! $relationObject instanceof \AndyH\Datamapper\Contracts\Proxy) {
                 // set relation
-                if ($relationObject instanceof \ProAI\Datamapper\Support\Collection) {
+                if ($relationObject instanceof \AndyH\Datamapper\Support\Collection) {
                     $value = EloquentCollection::newFromDatamapperObject($relationObject, $this, $eloquentModel);
                 } elseif (spl_object_hash($relationObject) == $lastObjectId) {
                     $value = $lastEloquentModel;
@@ -418,7 +418,7 @@ class Model extends EloquentModel
     /**
      * Update auto inserted/updated fields.
      *
-     * @param  \ProAI\Datamapper\Contracts\Entity  $entity
+     * @param  \AndyH\Datamapper\Contracts\Entity  $entity
      * @param  string  $action
      * @return void
      */

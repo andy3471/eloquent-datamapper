@@ -1,16 +1,16 @@
 <?php
 
-namespace ProAI\Datamapper\Eloquent;
+namespace AndyH\Datamapper\Eloquent;
 
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use ProAI\Datamapper\Support\Collection as DatamapperCollection;
+use AndyH\Datamapper\Support\Collection as DatamapperCollection;
 
 class Collection extends EloquentCollection
 {
     /**
      * Convert models to entity objects.
      *
-     * @return \ProAI\Datamapper\Support\Collection
+     * @return \AndyH\Datamapper\Support\Collection
      */
     public function toDatamapperObject()
     {
@@ -30,7 +30,7 @@ class Collection extends EloquentCollection
      * @param  array  $schema
      * @param  array  $transformations
      * @param  string  $path
-     * @return \ProAI\Datamapper\Support\Collection
+     * @return \AndyH\Datamapper\Support\Collection
      */
     public function toDataTransferObject(string $root, array $schema, array $transformations, $path = '')
     {
@@ -46,10 +46,10 @@ class Collection extends EloquentCollection
     /**
      * Convert models to eloquent models.
      *
-     * @param  \ProAI\Datamapper\Support\Collection  $entities
+     * @param  \AndyH\Datamapper\Support\Collection  $entities
      * @param  string  $lastObjectId
-     * @param  \ProAI\Datamapper\Eloquent\Model  $lastEloquentModel
-     * @return \ProAI\Datamapper\Eloquent\Collection
+     * @param  \AndyH\Datamapper\Eloquent\Model  $lastEloquentModel
+     * @return \AndyH\Datamapper\Eloquent\Collection
      */
     public static function newFromDatamapperObject($entities, $lastObjectId, $lastEloquentModel)
     {

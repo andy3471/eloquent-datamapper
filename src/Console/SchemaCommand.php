@@ -1,12 +1,12 @@
 <?php
 
-namespace ProAI\Datamapper\Console;
+namespace AndyH\Datamapper\Console;
 
 use Illuminate\Console\Command;
-use ProAI\Datamapper\Eloquent\Generator as ModelGenerator;
-use ProAI\Datamapper\Metadata\ClassFinder;
-use ProAI\Datamapper\Metadata\EntityScanner;
-use ProAI\Datamapper\Schema\Builder as SchemaBuilder;
+use AndyH\Datamapper\Eloquent\Generator as ModelGenerator;
+use AndyH\Datamapper\Metadata\ClassFinder;
+use AndyH\Datamapper\Metadata\EntityScanner;
+use AndyH\Datamapper\Schema\Builder as SchemaBuilder;
 use UnexpectedValueException;
 
 abstract class SchemaCommand extends Command
@@ -14,28 +14,28 @@ abstract class SchemaCommand extends Command
     /**
      * The class finder instance.
      *
-     * @var \ProAI\Datamapper\Metadata\ClassFinder
+     * @var \AndyH\Datamapper\Metadata\ClassFinder
      */
     protected $finder;
 
     /**
      * The entity scanner instance.
      *
-     * @var \ProAI\Datamapper\Metadata\EntityScanner
+     * @var \AndyH\Datamapper\Metadata\EntityScanner
      */
     protected $scanner;
 
     /**
      * The schema builder instance.
      *
-     * @var \ProAI\Datamapper\Schema\Builder
+     * @var \AndyH\Datamapper\Schema\Builder
      */
     protected $schema;
 
     /**
      * The schema builder instance.
      *
-     * @var \ProAI\Datamapper\Eloquent\Generator
+     * @var \AndyH\Datamapper\Eloquent\Generator
      */
     protected $modelGenerator;
 
@@ -49,10 +49,10 @@ abstract class SchemaCommand extends Command
     /**
      * Create a new migration install command instance.
      *
-     * @param  \ProAI\Datamapper\Metadata\ClassFinder  $finder
-     * @param  \ProAI\Datamapper\Metadata\EntityScanner  $scanner
-     * @param  \ProAI\Datamapper\Schema\Builder  $schema
-     * @param  \ProAI\Datamapper\Eloquent\Generator  $models
+     * @param  \AndyH\Datamapper\Metadata\ClassFinder  $finder
+     * @param  \AndyH\Datamapper\Metadata\EntityScanner  $scanner
+     * @param  \AndyH\Datamapper\Schema\Builder  $schema
+     * @param  \AndyH\Datamapper\Eloquent\Generator  $models
      * @param  array  $config
      * @return void
      */

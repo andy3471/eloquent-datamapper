@@ -1,12 +1,12 @@
 <?php
 
-namespace ProAI\Datamapper\Metadata;
+namespace AndyH\Datamapper\Metadata;
 
 use DomainException;
 use Exception;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use ProAI\Datamapper\Metadata\Definitions\Entity as EntityDefinition;
+use AndyH\Datamapper\Metadata\Definitions\Entity as EntityDefinition;
 use UnexpectedValueException;
 
 class EntityValidator
@@ -58,7 +58,7 @@ class EntityValidator
         $check = false;
 
         foreach ($classAnnotations as $annotation) {
-            if ($annotation instanceof \ProAI\Datamapper\Annotations\Embeddable) {
+            if ($annotation instanceof \AndyH\Datamapper\Annotations\Embeddable) {
                 $check = true;
             }
         }
@@ -131,7 +131,7 @@ class EntityValidator
     /**
      * Validate the number of primary keys.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validatePrimaryKey(EntityDefinition $entityMetadata)
@@ -155,7 +155,7 @@ class EntityValidator
     /**
      * Validate the timestamps columns.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validateTimestamps(EntityDefinition $entityMetadata)
@@ -182,7 +182,7 @@ class EntityValidator
     /**
      * Validate the softdeletes column.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validateSoftDeletes(EntityDefinition $entityMetadata)
@@ -209,7 +209,7 @@ class EntityValidator
     /**
      * Validate the version table.
      *
-     * @param  \ProAI\Datamapper\Metadata\Definitions\Entity  $entityMetadata
+     * @param  \AndyH\Datamapper\Metadata\Definitions\Entity  $entityMetadata
      * @return void
      */
     public function validateVersionTable(EntityDefinition $entityMetadata)

@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Eloquent;
+namespace AndyH\Datamapper\Eloquent;
 
 use Illuminate\Database\Eloquent\Builder as EloquentQueryBuilder;
 

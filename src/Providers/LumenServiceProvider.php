@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Providers;
+namespace AndyH\Datamapper\Providers;
 
 class LumenServiceProvider extends BaseServiceProvider
 {

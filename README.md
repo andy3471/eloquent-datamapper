@@ -1,8 +1,8 @@
 # Laravel Datamapper
 
-[![Latest Stable Version](https://poser.pugx.org/proai/laravel-datamapper/v/stable)](https://packagist.org/packages/proai/laravel-datamapper) [![Total Downloads](https://poser.pugx.org/proai/laravel-datamapper/downloads)](https://packagist.org/packages/proai/laravel-datamapper) [![Latest Unstable Version](https://poser.pugx.org/proai/laravel-datamapper/v/unstable)](https://packagist.org/packages/proai/laravel-datamapper) [![License](https://poser.pugx.org/proai/laravel-datamapper/license)](https://packagist.org/packages/proai/laravel-datamapper)
+[![Latest Stable Version](https://poser.pugx.org/AndyH/laravel-datamapper/v/stable)](https://packagist.org/packages/AndyH/laravel-datamapper) [![Total Downloads](https://poser.pugx.org/AndyH/laravel-datamapper/downloads)](https://packagist.org/packages/AndyH/laravel-datamapper) [![Latest Unstable Version](https://poser.pugx.org/AndyH/laravel-datamapper/v/unstable)](https://packagist.org/packages/AndyH/laravel-datamapper) [![License](https://poser.pugx.org/AndyH/laravel-datamapper/license)](https://packagist.org/packages/AndyH/laravel-datamapper)
 
-**Important: This package is unmaintained and never hit production stage. I decided that it is not worse to develop a datamapper package, because there is no real advantage over using the Laravel Eloquent orm. Nevertheless this package is [well documented](https://proai.github.io/laravel-datamapper) and basically all features should work out of the box. So if someone is interested in using the datamapper pattern with Laravel, this package is a good starting point.**
+**Important: This package is unmaintained and never hit production stage. I decided that it is not worse to develop a datamapper package, because there is no real advantage over using the Laravel Eloquent orm. Nevertheless this package is [well documented](https://AndyH.github.io/laravel-datamapper) and basically all features should work out of the box. So if someone is interested in using the datamapper pattern with Laravel, this package is a good starting point.**
 
 An easy to use data mapper ORM for Laravel 5 that fits perfectly to the approach of Domain Driven Design (DDD). In general the Laravel Data Mapper is an extension to the Laravel Query Builder. You can build queries by using all of the query builder methods and in addition you can pass Plain Old PHP Objects (POPO's) to the builder and also return POPO's from the builder.
 
@@ -11,26 +11,26 @@ An easy to use data mapper ORM for Laravel 5 that fits perfectly to the approach
 Laravel Data Mapper is distributed as a composer package. So you first have to add the package to your `composer.json` file:
 
 ```
-"proai/laravel-datamapper": "~1.0@dev"
+"AndyH/laravel-datamapper": "~1.0@dev"
 ```
 
 Then you have to run `composer update` to install the package. Once this is completed, you have to add the service provider to the providers array in `config/app.php`:
 
 ```
-'ProAI\Datamapper\DatamapperServiceProvider'
+'AndyH\Datamapper\DatamapperServiceProvider'
 ```
 
 If you want to use a facade for the entity manager, you can create an alias in the aliases array of `config/app.php`:
 
 ```
-'EM' => 'ProAI\Datamapper\Support\Facades\EntityManager'
+'EM' => 'AndyH\Datamapper\Support\Facades\EntityManager'
 ```
 
 Run `php artisan vendor:publish` to publish this package configuration. Afterwards you can edit the file `config/datamapper.php`.
 
 ## Documentation
 
-See the full **[Documentation](https://proai.github.io/laravel-datamapper)** for more information.
+See the full **[Documentation](https://AndyH.github.io/laravel-datamapper)** for more information.
 
 ## Usage
 
@@ -41,8 +41,8 @@ We will map all classes to a database table by using annotations. Annotations ar
 ```php
 <?php
 
-use ProAI\Datamapper\Support\Entity;
-use ProAI\Datamapper\Annotations as ORM;
+use AndyH\Datamapper\Support\Entity;
+use AndyH\Datamapper\Annotations as ORM;
 
 /**
  * @ORM\Entity
@@ -86,7 +86,7 @@ As already mentioned the Laravel Data Mapper is an extension of the Laravel Quer
 ```php
 <?php
 
-use ProAI\Datamapper\EntityManager;
+use AndyH\Datamapper\EntityManager;
 
 class UserRepository {
 
@@ -129,7 +129,7 @@ You can use the `with()` method the same way as you use it with Eloquent objects
 
 If an entity has the `@ORM\Timestamps` annotation, `$timestamps` will be set to true in the mapped Eloquent model, so the created at and updated at timestamp will be updated automatically on insert and update.
 
-Note: This plugin requires a `$createdAt` property and a `$updatedAt` property. You can use the `ProAI\Datamapper\Support\Traits\Timestamps` trait for this.
+Note: This plugin requires a `$createdAt` property and a `$updatedAt` property. You can use the `AndyH\Datamapper\Support\Traits\Timestamps` trait for this.
 
 ##### SoftDeletes
 
@@ -137,11 +137,11 @@ If an entity has the `@ORM\SoftDeletes` annotation, you can use the soft deletin
 
 `$users = $em->class('Entity\User')->withTrashed()->all();`
 
-Note: This plugin requires a `$deletedAt` property. You can use the `ProAI\Datamapper\Support\Traits\SoftDeletes` trait for this.
+Note: This plugin requires a `$deletedAt` property. You can use the `AndyH\Datamapper\Support\Traits\SoftDeletes` trait for this.
 
 ##### Versioning
 
-If an entity has the `@ORM\Versionable` annotation and you have added the `@ORM\Versioned` annotation to all versioned properties, you can use the versioning methods of the [Eloquent Versioning](https://github.com/proai/eloquent-versioning) package. So make sure you have installed this package.
+If an entity has the `@ORM\Versionable` annotation and you have added the `@ORM\Versioned` annotation to all versioned properties, you can use the versioning methods of the [Eloquent Versioning](https://github.com/AndyH/eloquent-versioning) package. So make sure you have installed this package.
 
 By default the query builder returns always the latest version. If you want a specific version or all versions, you can use the following:
 
@@ -151,11 +151,11 @@ By default the query builder returns always the latest version. If you want a sp
 
 ### Presenters
 
-This package can be extended by the Laravel Datamapper Presenter package. Check out the [Laravel Datamapper Presenter](https://github.com/ProAI/laravel-datamapper-presenter) readme for more information.
+This package can be extended by the Laravel Datamapper Presenter package. Check out the [Laravel Datamapper Presenter](https://github.com/AndyH/laravel-datamapper-presenter) readme for more information.
 
 ## Support
 
-Bugs and feature requests are tracked on [GitHub](https://github.com/proai/laravel-datamapper/issues).
+Bugs and feature requests are tracked on [GitHub](https://github.com/AndyH/laravel-datamapper/issues).
 
 ## License
 

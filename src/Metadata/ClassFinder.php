@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Metadata;
+namespace AndyH\Datamapper\Metadata;
 
 use HaydenPierce\ClassFinder\ClassFinder as FilesystemClassFinder;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace ProAI\Datamapper\Metadata;
+namespace AndyH\Datamapper\Metadata;
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Illuminate\Filesystem\Filesystem;

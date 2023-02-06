@@ -42,7 +42,7 @@ if (! function_exists('get_mapped_model_namespace')) {
      */
     function get_mapped_model_namespace()
     {
-        return 'ProAI\Datamapper\Cache';
+        return 'AndyH\Datamapper\Cache';
     }
 }
 

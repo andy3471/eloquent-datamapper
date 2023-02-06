@@ -2,7 +2,7 @@
 
 namespace {{namespace}};
 
-use ProAI\Datamapper\Eloquent\Model;
+use AndyH\Datamapper\Eloquent\Model;
 
 class {{class}} extends Model
 {
