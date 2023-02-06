@@ -5,7 +5,7 @@ namespace AndyH\Datamapper\Providers;
 use Illuminate\Support\ServiceProvider;
 use AndyH\Datamapper\Console\SchemaCreateCommand;
 use AndyH\Datamapper\Console\SchemaDropCommand;
-use AndyH\Datamapper\Console\SchemaUpdateCommand;
+use AndyH\Datamapper\Console\SchemaDiffCommand;
 use AndyH\Datamapper\Eloquent\Generator as ModelGenerator;
 use AndyH\Datamapper\Metadata\EntityScanner;
 use AndyH\Datamapper\Metadata\EntityValidator;
@@ -82,7 +82,8 @@ class CommandsServiceProvider extends ServiceProvider
         $app = $this->app;
 
         $app->singleton('datamapper.eloquent.generator', function ($app) {
-            $path = storage_path('framework/entities');
+            // TODO: Move to config
+            $path = app_path('Models');
 
             return new ModelGenerator($app['files'], $path);
         });
@@ -96,7 +97,7 @@ class CommandsServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         // create singletons of each command
-        $commands = ['Create', 'Update', 'Drop'];
+        $commands = ['Diff', 'Drop'];
 
         foreach ($commands as $command) {
             $this->{'register'.$command.'Command'}();
@@ -104,39 +105,38 @@ class CommandsServiceProvider extends ServiceProvider
 
         // register commands
         $this->commands(
-            'command.schema.create',
-            'command.schema.update',
+            'command.schema.diff',
             'command.schema.drop'
         );
     }
 
-    /**
-     * Register the "schema:create" command.
-     *
-     * @return void
-     */
-    protected function registerCreateCommand()
-    {
-        $this->app->singleton('command.schema.create', function ($app) {
-            return new SchemaCreateCommand(
-                $app['datamapper.classfinder'],
-                $app['datamapper.entity.scanner'],
-                $app['datamapper.schema.builder'],
-                $app['datamapper.eloquent.generator'],
-                $app['config']['datamapper']
-            );
-        });
-    }
+//    /**
+//     * Register the "schema:create" command.
+//     *
+//     * @return void
+//     */
+//    protected function registerCreateCommand()
+//    {
+//        $this->app->singleton('command.schema.create', function ($app) {
+//            return new SchemaCreateCommand(
+//                $app['datamapper.classfinder'],
+//                $app['datamapper.entity.scanner'],
+//                $app['datamapper.schema.builder'],
+//                $app['datamapper.eloquent.generator'],
+//                $app['config']['datamapper']
+//            );
+//        });
+//    }
 
     /**
-     * Register the "schema:update" command.
+     * Register the "schema:diff" command.
      *
      * @return void
      */
-    protected function registerUpdateCommand()
+    protected function registerDiffCommand()
     {
-        $this->app->singleton('command.schema.update', function ($app) {
-            return new SchemaUpdateCommand(
+        $this->app->singleton('command.schema.diff', function ($app) {
+            return new SchemaDiffCommand(
                 $app['datamapper.classfinder'],
                 $app['datamapper.entity.scanner'],
                 $app['datamapper.schema.builder'],
@@ -175,8 +175,7 @@ class CommandsServiceProvider extends ServiceProvider
             'datamapper.entity.scanner',
             'datamapper.schema.builder',
             'datamapper.eloquent.generator',
-            'command.schema.create',
-            'command.schema.update',
+            'command.schema.diff',
             'command.schema.drop',
         ];
     }

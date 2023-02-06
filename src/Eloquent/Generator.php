@@ -131,7 +131,7 @@ class Generator
         // relations
         $this->replaceRelations($entityMetadata['relations'], $stub);
 
-        $this->files->put($this->path.'/'.get_mapped_model_hash($entityMetadata['class']), $stub);
+        $this->files->put($this->path.'/'.get_mapped_modal_name($entityMetadata['class']).'.php', $stub);
     }
 
     /**

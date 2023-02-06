@@ -6,14 +6,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class SchemaUpdateCommand extends SchemaCommand
+class SchemaDiffCommand extends SchemaCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'schema:update';
+    protected $name = 'schema:diff';
 
     /**
      * The console command description.
@@ -32,8 +32,7 @@ class SchemaUpdateCommand extends SchemaCommand
         $this->info(PHP_EOL.' 0% Initializing');
 
         // get classes
-        $classes = $this->getClasses($this->config['models_namespace']);
-
+        $classes = $this->getClasses();
         $this->info(' 25% Building metadata');
 
         // build metadata

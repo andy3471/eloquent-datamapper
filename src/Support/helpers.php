@@ -21,16 +21,16 @@ if (! function_exists('get_real_entity')) {
     }
 }
 
-if (! function_exists('get_mapped_model_hash')) {
+if (! function_exists('get_mapped_model')) {
     /**
      * Get the hash of an entity that is used for the mapped eloquent model.
      *
      * @param  string  $class
      * @return string
      */
-    function get_mapped_model_hash($class)
+    function get_mapped_modal_name($class)
     {
-        return md5($class);
+        return class_basename($class);
     }
 }
 
@@ -42,7 +42,8 @@ if (! function_exists('get_mapped_model_namespace')) {
      */
     function get_mapped_model_namespace()
     {
-        return 'AndyH\Datamapper\Cache';
+        // TODO
+        return 'App\Models';
     }
 }
 
@@ -56,7 +57,9 @@ if (! function_exists('get_mapped_model')) {
      */
     function get_mapped_model($class, $check = true)
     {
-        $model = get_mapped_model_namespace().'\Entity'.get_mapped_model_hash($class);
+        $className = '\\'.class_basename($class);
+        $model = get_mapped_model_namespace().$className;
+
         if (class_exists($model) || ! $check) {
             return $model;
         } else {
